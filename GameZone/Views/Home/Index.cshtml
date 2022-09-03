@@ -1,8 +1,20 @@
-﻿@{
+﻿@model IEnumerable<GameZone.Domain.Entities.Game>;
+
+@{
     ViewData["Title"] = "Home Page";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+
+<div class="mx-auto col-6">
+    @foreach(var game in @Model)
+    {
+        <div class="card" style="width: 18rem;">
+            <div class="card-body">
+            <h5 class="card-title">@game.Name</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@game.Developer.Name (@game.ReleaseDate.ToString(".dd.MM.yyyy"))</h6>
+            <p class="card-text">@game.Description</p>
+            <p > @game.Price.ToString("N") $</p>
+            </div>
+        </div>
+    }
 </div>

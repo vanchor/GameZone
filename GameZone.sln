@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Domain", "GameZone
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{640C9F73-AE58-41A2-BFCF-AC8B5CDC3F01}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Data", "GameZone.Persistence\GameZone.Data.csproj", "{A16E9E23-C2B3-4B29-A285-DFF5EF3B60E7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.DataBase", "GameZone.DataBase\GameZone.DataBase.csproj", "{A16E9E23-C2B3-4B29-A285-DFF5EF3B60E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

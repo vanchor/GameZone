@@ -1,4 +1,6 @@
-using GameZone.Data;
+using GameZone.DataBase;
+using GameZone.DataBase.Interfaces;
+using GameZone.DataBase.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,6 +11,8 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<GameZoneDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
+
+builder.Services.AddScoped<IGameRepository, GameRepository>();
 
 var app = builder.Build();
 

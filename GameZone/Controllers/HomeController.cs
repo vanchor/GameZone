@@ -1,4 +1,5 @@
-﻿using GameZone.Models;
+﻿using GameZone.DataBase.Interfaces;
+using GameZone.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -7,15 +8,18 @@ namespace GameZone.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IGameRepository _gameRepository;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IGameRepository gameRepository)
         {
             _logger = logger;
+            _gameRepository = gameRepository;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var allGames = await _gameRepository.Get();
+            return View(allGames);
         }
 
         public IActionResult Privacy()
