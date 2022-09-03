@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace GameZone.Domain.Entities
 {
-    internal class Company
+    public class Company
     {
         public int Id { get; set; }
         public string Name { get; set; }

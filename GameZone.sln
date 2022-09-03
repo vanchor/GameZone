@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameZone", "GameZone\GameZone.csproj", "{79AB7F32-020E-47CD-A018-1F5A495F4667}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone", "GameZone\GameZone.csproj", "{79AB7F32-020E-47CD-A018-1F5A495F4667}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{4BC276A5-D896-4645-BE27-A27D1ABB4194}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Domain", "GameZone.Domain\GameZone.Domain.csproj", "{8EF9C75F-C699-4768-828C-BC369AD3371F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{640C9F73-AE58-41A2-BFCF-AC8B5CDC3F01}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Data", "GameZone.Persistence\GameZone.Data.csproj", "{A16E9E23-C2B3-4B29-A285-DFF5EF3B60E7}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,9 +23,21 @@ Global
 		{79AB7F32-020E-47CD-A018-1F5A495F4667}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{79AB7F32-020E-47CD-A018-1F5A495F4667}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{79AB7F32-020E-47CD-A018-1F5A495F4667}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EF9C75F-C699-4768-828C-BC369AD3371F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EF9C75F-C699-4768-828C-BC369AD3371F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EF9C75F-C699-4768-828C-BC369AD3371F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EF9C75F-C699-4768-828C-BC369AD3371F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A16E9E23-C2B3-4B29-A285-DFF5EF3B60E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A16E9E23-C2B3-4B29-A285-DFF5EF3B60E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A16E9E23-C2B3-4B29-A285-DFF5EF3B60E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A16E9E23-C2B3-4B29-A285-DFF5EF3B60E7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{8EF9C75F-C699-4768-828C-BC369AD3371F} = {4BC276A5-D896-4645-BE27-A27D1ABB4194}
+		{A16E9E23-C2B3-4B29-A285-DFF5EF3B60E7} = {640C9F73-AE58-41A2-BFCF-AC8B5CDC3F01}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {043037C8-798C-4093-8017-D3A4A62CCE21}
