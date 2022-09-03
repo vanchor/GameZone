@@ -30,7 +30,7 @@ namespace GameZone.DataBase.Repositories
 
         public async Task<IEnumerable<Game>> Get()
         {
-            return await _context.Games.Include(g => g.Developer).ToListAsync();
+            return await _context.Games.Include(g => g.Developer).Include(g => g.Images).ToListAsync();
         }
 
         public Task<Game> Get(int id)

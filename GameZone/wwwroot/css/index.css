@@ -1,0 +1,54 @@
+﻿
+.searchForm {
+    max-height: 38px;
+}
+
+
+/* ==== Game Card carousel ====*/
+.carousel .carousel-control {
+    transition: 0.3s linear;
+    visibility: hidden;
+}
+
+.game_card_carousel .carousel-indicators button {
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 50%;
+}
+
+.card-footer {
+    position: relative;
+}
+
+.card-footer span {
+    vertical-align: middle;
+    margin-left: 15px;
+}
+
+/*.card-footer p {
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    transform: translate(0, -50%);
+}
+*/
+
+.card {
+    transition: 0.3s linear;
+}
+
+.card:hover {
+    z-index: 10;
+    -webkit-transform: scale(1.03);
+    transform: scale(1.03);
+}
+
+.card:hover .carousel-control {
+    visibility: visible;
+}
+
+
+.gameCardHeader {
+    flex-wrap: wrap;
+    margin-bottom: 20px;
+}

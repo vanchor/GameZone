@@ -4,6 +4,7 @@ using GameZone.DataBase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameZone.DataBase.Migrations
 {
     [DbContext(typeof(GameZoneDbContext))]
-    partial class GameZoneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220903161457_AddedImagesToGameModel")]
+    partial class AddedImagesToGameModel
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

@@ -1,19 +1,90 @@
-﻿@model IEnumerable<GameZone.Domain.Entities.Game>;
-
+﻿@model IEnumerable<GameZone.Domain.Entities.Game>
 @{
     ViewData["Title"] = "Home Page";
 }
 
+<div class="container px-4 px-lg-5">
+    <div class="gameCardHeader d-flex justify-content-between">
+        <p class="fs-3">SPECIAL OFFERS</p>
+        @{
+            /*TODO: Add searching by name*/
+        }
+        <form class="searchForm d-flex" onsubmit="">
+            <input id="search-name" class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
+    </div>
 
-<div class="mx-auto col-6">
-    @foreach(var game in @Model)
+
+    @foreach (var game in @Model)
     {
-        <div class="card" style="width: 18rem;">
-            <div class="card-body">
-            <h5 class="card-title">@game.Name</h5>
-            <h6 class="card-subtitle mb-2 text-muted">@game.Developer.Name (@game.ReleaseDate.ToString(".dd.MM.yyyy"))</h6>
-            <p class="card-text">@game.Description</p>
-            <p > @game.Price.ToString("N") $</p>
+        var GameCarouselName = game.Name.Trim().Replace(' ', '_');
+        var countOfPhotosInSlider = game.Images.Count < 9 ? game.Images.Count : 9;
+
+        <div class="row gx-4 gx-lg-4" id="game_cards">
+            <div class="col-lg-4 col-md-6 col-sm-6 mb-5">
+                <div class="card h-100">
+                    <div id="@GameCarouselName" class="carousel game_card_carousel slide" data-bs-ride="false">
+                        <div class="carousel-indicators">
+                            @for (int i = 0; i < countOfPhotosInSlider; i++)
+                            {
+                                var classes = "";
+                                var aria_current = "";
+                                if (i == 0) // Make first button active in carousel
+                                {
+                                    classes += "active";
+                                    aria_current = "true";
+                                }
+
+                                <button type="button" data-bs-target="#@GameCarouselName" 
+                                        data-bs-slide-to="@i" aria-label="Slide @i" class="@classes" aria-current="@aria_current">
+                                </button>
+                            }
+                        </div>
+
+                        <div class="carousel-inner">
+                            @{var index = 0;}
+                            @foreach (var image in game.Images)
+                            {
+                                var classes = "carousel-item";
+                                if(index == 0)
+                                    classes += " active";
+
+                                <div class="@classes"><img src="~/images/@image.Url" class="d-block w-100" alt="@image.Title"></div>
+                                index++;
+                                if (index > 8)
+                                    break;
+                            }
+
+                        </div>
+
+                        <button class="carousel-control-prev carousel-control" type="button" data-bs-target="#@GameCarouselName" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next carousel-control" type="button" data-bs-target="#@GameCarouselName" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                    </div>
+
+                    <div class="card-body">
+                        <h2 class="card-title">@game.Name</h2>
+                        <h6 class="card-subtitle mb-2 text-muted">@game.Developer.Name (@game.ReleaseDate.ToString("dd.MM.yyyy"))</h6>
+                    </div>
+                    <div class="card-footer">
+                        @{
+                            /*TODO: Add BUY button handler */
+                        }
+                        <button type="button" class="btn btn-outline-dark">Buy now</button>
+                         
+                        @{
+                            /*TODO: Add Favourity */
+                        }
+                        <span class="material-icons favorite" onclick="addToFavorite('Dying Light')">favorite_border</span>
+                        <p class="float-end fs-5">@game.Price.ToString("N")$</p>
+                    </div>
+                </div>
             </div>
         </div>
     }
