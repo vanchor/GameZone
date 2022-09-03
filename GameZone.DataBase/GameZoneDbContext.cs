@@ -13,6 +13,6 @@ namespace GameZone.DataBase
         public DbSet<Game> Games { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Category> Categories { get; set; }
-
+        public DbSet<Image> Images { get; set; }
     }
 }
