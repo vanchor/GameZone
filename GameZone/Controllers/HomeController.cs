@@ -8,18 +8,15 @@ namespace GameZone.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
-        private readonly IGameRepository _gameRepository;
 
-        public HomeController(ILogger<HomeController> logger, IGameRepository gameRepository)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _gameRepository = gameRepository;
         }
 
         public async Task<IActionResult> Index()
         {
-            var allGames = await _gameRepository.Get();
-            return View(allGames);
+            return View();
         }
 
         public IActionResult Privacy()

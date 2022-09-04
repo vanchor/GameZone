@@ -4,6 +4,7 @@ using GameZone.DataBase;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GameZone.DataBase.Migrations
 {
     [DbContext(typeof(GameZoneDbContext))]
-    partial class GameZoneDbContextModelSnapshot : ModelSnapshot
+    [Migration("20220904102213_AddedTypeToImage")]
+    partial class AddedTypeToImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -34,7 +36,7 @@ namespace GameZone.DataBase.Migrations
 
                     b.HasIndex("GamesId");
 
-                    b.ToTable("CategoryGame", (string)null);
+                    b.ToTable("CategoryGame");
                 });
 
             modelBuilder.Entity("GameZone.Domain.Entities.Category", b =>
@@ -51,7 +53,7 @@ namespace GameZone.DataBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories", (string)null);
+                    b.ToTable("Categories");
                 });
 
             modelBuilder.Entity("GameZone.Domain.Entities.Company", b =>
@@ -72,7 +74,7 @@ namespace GameZone.DataBase.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Companies", (string)null);
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("GameZone.Domain.Entities.Game", b =>
@@ -104,7 +106,7 @@ namespace GameZone.DataBase.Migrations
 
                     b.HasIndex("DeveloperId");
 
-                    b.ToTable("Games", (string)null);
+                    b.ToTable("Games");
                 });
 
             modelBuilder.Entity("GameZone.Domain.Entities.Image", b =>
@@ -133,7 +135,7 @@ namespace GameZone.DataBase.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("Images", (string)null);
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("CategoryGame", b =>

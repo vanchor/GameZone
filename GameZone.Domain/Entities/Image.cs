@@ -14,6 +14,16 @@ namespace GameZone.Domain.Entities
 
         public int GameId { get; set; }
 
+        public ImageType Type { get; set; }
+
         public virtual Game game { get; set; }
     }
+
+    public enum ImageType
+    {
+        fullSize,
+        medium,
+        thumbnail
+    }
 }
+    

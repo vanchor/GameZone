@@ -33,6 +33,13 @@ namespace GameZone.DataBase.Repositories
             return await _context.Games.Include(g => g.Developer).Include(g => g.Images).ToListAsync();
         }
 
+        public async Task<IEnumerable<Game>> GetWithImageType(ImageType type)
+        {
+            return await _context.Games.Include(g => g.Developer)
+                                        .Include(g => g.Images.Where(i => i.Type == type))
+                                        .ToListAsync();
+        }
+
         public Task<Game> Get(int id)
         {
             throw new NotImplementedException();

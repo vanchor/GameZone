@@ -31,7 +31,7 @@ namespace GameZone.DataBase.Migrations
                 columns: new[] { "CategoriesId", "GamesId" });
 
             migrationBuilder.CreateTable(
-                name: "Image",
+                name: "Images",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -42,9 +42,9 @@ namespace GameZone.DataBase.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Image", x => x.Id);
+                    table.PrimaryKey("PK_Images", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Image_Games_GameId",
+                        name: "FK_Images_Games_GameId",
                         column: x => x.GameId,
                         principalTable: "Games",
                         principalColumn: "Id",
@@ -57,8 +57,8 @@ namespace GameZone.DataBase.Migrations
                 column: "GamesId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Image_GameId",
-                table: "Image",
+                name: "IX_Images_GameId",
+                table: "Images",
                 column: "GameId");
 
             migrationBuilder.AddForeignKey(
@@ -77,7 +77,7 @@ namespace GameZone.DataBase.Migrations
                 table: "CategoryGame");
 
             migrationBuilder.DropTable(
-                name: "Image");
+                name: "Images");
 
             migrationBuilder.DropPrimaryKey(
                 name: "PK_CategoryGame",

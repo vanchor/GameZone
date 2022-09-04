@@ -11,6 +11,7 @@ namespace GameZone.DataBase.Interfaces
     {
         Task<Game> GetByName(string Name);
         Task<IEnumerable<Category>> GetAllCategories(int GameId);
+        Task<IEnumerable<Game>> GetWithImageType(ImageType image);
         Task<Company> GetCompany(int GameId);
     }
 }

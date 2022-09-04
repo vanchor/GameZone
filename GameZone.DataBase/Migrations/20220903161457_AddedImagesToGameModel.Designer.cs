@@ -132,7 +132,7 @@ namespace GameZone.DataBase.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("Image");
+                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("CategoryGame", b =>
