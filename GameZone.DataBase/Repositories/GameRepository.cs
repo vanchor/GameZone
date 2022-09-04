@@ -18,31 +18,44 @@ namespace GameZone.DataBase.Repositories
             _context = context;
         }
 
-        public Task<Game> Create(Game item)
+        public async Task Create(Game item)
         {
-            throw new NotImplementedException();
+            await _context.AddAsync(item);
+            await _context.SaveChangesAsync();
         }
 
-        public Task Delete(int id)
+        public async Task Delete(Game game)
         {
-            throw new NotImplementedException();
+            _context.Games.Remove(game);
+            await _context.SaveChangesAsync();
         }
 
         public async Task<IEnumerable<Game>> Get()
         {
-            return await _context.Games.Include(g => g.Developer).Include(g => g.Images).ToListAsync();
+            return await _context.Games.Include(g => g.Developer)
+                                        .Include(g => g.Images)
+                                        .ToListAsync();
         }
 
-        public async Task<IEnumerable<Game>> GetWithImageType(ImageType type)
+        public async Task<IEnumerable<Game>> Get(ImageType type = ImageType.fullSize)
         {
             return await _context.Games.Include(g => g.Developer)
                                         .Include(g => g.Images.Where(i => i.Type == type))
                                         .ToListAsync();
         }
 
-        public Task<Game> Get(int id)
+        public async Task<Game> Get(int id)
         {
-            throw new NotImplementedException();
+            return await _context.Games.Include(g => g.Developer)
+                                        .Include(g => g.Images)
+                                        .FirstOrDefaultAsync(g => g.Id == id);
+        }
+
+        public async Task<Game> Get(int id, ImageType type = ImageType.fullSize)
+        {
+            return await _context.Games.Include(g => g.Developer)
+                                        .Include(g => g.Images.Where(i => i.Type == type))
+                                        .FirstOrDefaultAsync(g => g.Id == id);
         }
 
         public Task<IEnumerable<Category>> GetAllCategories(int GameId)
@@ -50,9 +63,11 @@ namespace GameZone.DataBase.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<Game> GetByName(string Name)
+        public async Task<Game> GetByName(string Name)
         {
-            throw new NotImplementedException();
+            return await _context.Games.Include(g => g.Developer)
+                                       .Include(g => g.Images)
+                                       .FirstOrDefaultAsync(g => g.Name == Name);
         }
 
         public Task<Company> GetCompany(int GameId)

@@ -16,7 +16,7 @@ namespace GameZone.Controllers
         [HttpGet]
         public async Task<IActionResult> GetGames()
         {
-            var allGames = await _gameRepository.GetWithImageType(ImageType.medium);
+            var allGames = await _gameRepository.Get(ImageType.medium);
             return View(allGames);
         }
     }
