@@ -1,5 +1,5 @@
 ﻿using GameZone.DataBase.Interfaces;
-using GameZone.Domain.Entities;
+using GameZone.Domain.Enum;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameZone.Controllers

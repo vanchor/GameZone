@@ -1,5 +1,6 @@
 ﻿using GameZone.DataBase.Interfaces;
 using GameZone.Domain.Entities;
+using GameZone.Domain.Enum;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;

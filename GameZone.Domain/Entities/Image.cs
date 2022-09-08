@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GameZone.Domain.Enum;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,13 +18,6 @@ namespace GameZone.Domain.Entities
         public ImageType Type { get; set; }
 
         public virtual Game game { get; set; }
-    }
-
-    public enum ImageType
-    {
-        fullSize,
-        medium,
-        thumbnail
     }
 }
     
