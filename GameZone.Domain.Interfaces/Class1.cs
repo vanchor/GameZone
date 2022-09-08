@@ -1,4 +1,4 @@
-﻿namespace GameZone.Service
+﻿namespace GameZone.Domain.Interfaces
 {
     public class Class1
     {

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameZone.Domain.Entities
+namespace GameZone.Domain.Core.Entities
 {
     public class Company
     {

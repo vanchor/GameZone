@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GameZone.Domain\GameZone.Domain.csproj" />
+    <ProjectReference Include="..\GameZone.Domain\GameZone.Domain.Core.csproj" />
   </ItemGroup>
 
 </Project>

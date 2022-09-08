@@ -1,23 +1,26 @@
-﻿using GameZone.DataBase.Interfaces;
-using GameZone.Domain.Enum;
+﻿using GameZone.Domain.Core.Enum;
+using GameZone.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameZone.Controllers
 {
     public class GameController : Controller
     {
-        private readonly IGameRepository _gameRepository;
+        private readonly IGameService _gameService;
 
-        public GameController(IGameRepository gameRepository)
+        public GameController(IGameService gameService)
         {
-            _gameRepository = gameRepository;
+            _gameService = gameService;
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetGames()
+        public IActionResult GetGames()
         {
-            var allGames = await _gameRepository.Get(ImageType.medium);
-            return View(allGames);
+            var response = _gameService.GetGames(imageType: ImageType.medium);
+            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                return View(response.Data);
+
+            return RedirectToAction("Error");   
         }
     }
 }

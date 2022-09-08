@@ -5,9 +5,9 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone", "GameZone\GameZone.csproj", "{79AB7F32-020E-47CD-A018-1F5A495F4667}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{4BC276A5-D896-4645-BE27-A27D1ABB4194}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Domain", "Domain", "{4BC276A5-D896-4645-BE27-A27D1ABB4194}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Domain", "GameZone.Domain\GameZone.Domain.csproj", "{8EF9C75F-C699-4768-828C-BC369AD3371F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Domain.Core", "GameZone.Domain\GameZone.Domain.Core.csproj", "{8EF9C75F-C699-4768-828C-BC369AD3371F}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{640C9F73-AE58-41A2-BFCF-AC8B5CDC3F01}"
 EndProject
@@ -15,7 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.DataBase", "GameZo
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{4B1DBAC3-8667-41A2-A019-D8B553B003AB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GameZone.Service", "GameZone.Service\GameZone.Service.csproj", "{DB3D66AB-E23E-4D72-A672-6876E9F534D3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GameZone.Service", "GameZone.Service\GameZone.Service.csproj", "{DB3D66AB-E23E-4D72-A672-6876E9F534D3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

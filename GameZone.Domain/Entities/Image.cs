@@ -1,11 +1,11 @@
-﻿using GameZone.Domain.Enum;
+﻿using GameZone.Domain.Core.Enum;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameZone.Domain.Entities
+namespace GameZone.Domain.Core.Entities
 {
     public class Image
     {

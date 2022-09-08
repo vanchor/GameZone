@@ -5,7 +5,7 @@ using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameZone.Domain.Response
+namespace GameZone.Domain.Core.Response
 {
     public class BaseResponse<T>
     {

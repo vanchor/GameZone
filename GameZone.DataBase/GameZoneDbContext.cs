@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using GameZone.Domain.Entities;
+using GameZone.Domain.Core.Entities;
 
 namespace GameZone.DataBase
 {

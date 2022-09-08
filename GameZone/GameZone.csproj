@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -16,7 +16,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\GameZone.DataBase\GameZone.DataBase.csproj" />
+    <ProjectReference Include="..\GameZone.Domain\GameZone.Domain.Core.csproj" />
     <ProjectReference Include="..\GameZone.Persistence\GameZone.DataBase.csproj" />
+    <ProjectReference Include="..\GameZone.Service\GameZone.Service.csproj" />
   </ItemGroup>
 
 </Project>

@@ -9,10 +9,9 @@ namespace GameZone.DataBase.Interfaces
     public interface IBaseRepository<T>
         where T : class
     {
-        Task<IEnumerable<T>> Get();
-        Task<T> Get(int id);
+        IQueryable<T> Get();
         Task Create(T item);
-        //Task Update(T item);
+        Task<T> Update(T item);
         Task Delete(T item);
     }
 }

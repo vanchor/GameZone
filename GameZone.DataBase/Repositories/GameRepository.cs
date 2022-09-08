@@ -1,6 +1,6 @@
 ﻿using GameZone.DataBase.Interfaces;
-using GameZone.Domain.Entities;
-using GameZone.Domain.Enum;
+using GameZone.Domain.Core.Entities;
+using GameZone.Domain.Core.Enum;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace GameZone.DataBase.Repositories
 {
-    public class GameRepository : IGameRepository
+    public class GameRepository : IBaseRepository<Game>
     {
         private readonly GameZoneDbContext _context;
 
@@ -25,55 +25,23 @@ namespace GameZone.DataBase.Repositories
             await _context.SaveChangesAsync();
         }
 
+        public IQueryable<Game> Get()
+        {
+            return _context.Games;
+        }
+
+        public async Task<Game> Update(Game item)
+        {
+            _context.Games.Update(item);
+            await _context.SaveChangesAsync();
+
+            return item;
+        }
+
         public async Task Delete(Game game)
         {
             _context.Games.Remove(game);
             await _context.SaveChangesAsync();
-        }
-
-        public async Task<IEnumerable<Game>> Get()
-        {
-            return await _context.Games.Include(g => g.Developer)
-                                        .Include(g => g.Images)
-                                        .ToListAsync();
-        }
-
-        public async Task<IEnumerable<Game>> Get(ImageType type = ImageType.fullSize)
-        {
-            return await _context.Games.Include(g => g.Developer)
-                                        .Include(g => g.Images.Where(i => i.Type == type))
-                                        .ToListAsync();
-        }
-
-        public async Task<Game> Get(int id)
-        {
-            return await _context.Games.Include(g => g.Developer)
-                                        .Include(g => g.Images)
-                                        .FirstOrDefaultAsync(g => g.Id == id);
-        }
-
-        public async Task<Game> Get(int id, ImageType type = ImageType.fullSize)
-        {
-            return await _context.Games.Include(g => g.Developer)
-                                        .Include(g => g.Images.Where(i => i.Type == type))
-                                        .FirstOrDefaultAsync(g => g.Id == id);
-        }
-
-        public Task<IEnumerable<Category>> GetAllCategories(int GameId)
-        {
-            throw new NotImplementedException();
-        }
-
-        public async Task<Game> GetByName(string Name)
-        {
-            return await _context.Games.Include(g => g.Developer)
-                                       .Include(g => g.Images)
-                                       .FirstOrDefaultAsync(g => g.Name == Name);
-        }
-
-        public Task<Company> GetCompany(int GameId)
-        {
-            throw new NotImplementedException();
         }
     }
 }

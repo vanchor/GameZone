@@ -1,4 +1,4 @@
-﻿namespace GameZone.Domain.Enum
+﻿namespace GameZone.Domain.Core.Enum
 {
     public enum ImageType
     {

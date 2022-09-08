@@ -39,7 +39,7 @@ namespace GameZone.DataBase.Migrations
                     b.ToTable("CategoryGame");
                 });
 
-            modelBuilder.Entity("GameZone.Domain.Entities.Category", b =>
+            modelBuilder.Entity("GameZone.Domain.Core.Entities.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -56,7 +56,7 @@ namespace GameZone.DataBase.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("GameZone.Domain.Entities.Company", b =>
+            modelBuilder.Entity("GameZone.Domain.Core.Entities.Company", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -77,7 +77,7 @@ namespace GameZone.DataBase.Migrations
                     b.ToTable("Companies");
                 });
 
-            modelBuilder.Entity("GameZone.Domain.Entities.Game", b =>
+            modelBuilder.Entity("GameZone.Domain.Core.Entities.Game", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -109,7 +109,7 @@ namespace GameZone.DataBase.Migrations
                     b.ToTable("Games");
                 });
 
-            modelBuilder.Entity("GameZone.Domain.Entities.Image", b =>
+            modelBuilder.Entity("GameZone.Domain.Core.Entities.Image", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -140,22 +140,22 @@ namespace GameZone.DataBase.Migrations
 
             modelBuilder.Entity("CategoryGame", b =>
                 {
-                    b.HasOne("GameZone.Domain.Entities.Category", null)
+                    b.HasOne("GameZone.Domain.Core.Entities.Category", null)
                         .WithMany()
                         .HasForeignKey("CategoriesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("GameZone.Domain.Entities.Game", null)
+                    b.HasOne("GameZone.Domain.Core.Entities.Game", null)
                         .WithMany()
                         .HasForeignKey("GamesId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GameZone.Domain.Entities.Game", b =>
+            modelBuilder.Entity("GameZone.Domain.Core.Entities.Game", b =>
                 {
-                    b.HasOne("GameZone.Domain.Entities.Company", "Developer")
+                    b.HasOne("GameZone.Domain.Core.Entities.Company", "Developer")
                         .WithMany("Games")
                         .HasForeignKey("DeveloperId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -164,9 +164,9 @@ namespace GameZone.DataBase.Migrations
                     b.Navigation("Developer");
                 });
 
-            modelBuilder.Entity("GameZone.Domain.Entities.Image", b =>
+            modelBuilder.Entity("GameZone.Domain.Core.Entities.Image", b =>
                 {
-                    b.HasOne("GameZone.Domain.Entities.Game", "game")
+                    b.HasOne("GameZone.Domain.Core.Entities.Game", "game")
                         .WithMany("Images")
                         .HasForeignKey("GameId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -175,12 +175,12 @@ namespace GameZone.DataBase.Migrations
                     b.Navigation("game");
                 });
 
-            modelBuilder.Entity("GameZone.Domain.Entities.Company", b =>
+            modelBuilder.Entity("GameZone.Domain.Core.Entities.Company", b =>
                 {
                     b.Navigation("Games");
                 });
 
-            modelBuilder.Entity("GameZone.Domain.Entities.Game", b =>
+            modelBuilder.Entity("GameZone.Domain.Core.Entities.Game", b =>
                 {
                     b.Navigation("Images");
                 });
