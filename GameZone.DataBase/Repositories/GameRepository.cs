@@ -21,7 +21,7 @@ namespace GameZone.DataBase.Repositories
 
         public async Task Create(Game item)
         {
-            await _context.AddAsync(item);
+            await _context.Games.AddAsync(item);
             await _context.SaveChangesAsync();
         }
 

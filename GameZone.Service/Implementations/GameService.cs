@@ -35,19 +35,19 @@ namespace GameZone.Service.Implementations
         {
             try
             {
-                var queryable = _gameRepository.Get().Include(g => g.Images.Where(i => i.Type == imageType));
+                var queryable = _gameRepository.Get();
 
                 if (includeDeveloper)
-                    queryable.Include(g => g.Developer);
+                    queryable = queryable.Include(g => g.Developer);
 
-                var games = queryable.ToList();
+                var games = queryable.Include(g => g.Images.Where(i => i.Type == imageType)).ToList();
 
                 if (games.Count() == 0)
                 {
                     return new BaseResponse<IEnumerable<Game>> {
                         Description = "0 items found",
                         StatusCode = HttpStatusCode.OK
-                    };
+                    };  
                 }
 
                 return new BaseResponse<IEnumerable<Game>>

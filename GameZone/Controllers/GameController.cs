@@ -13,7 +13,6 @@ namespace GameZone.Controllers
             _gameService = gameService;
         }
 
-        [HttpGet]
         public IActionResult GetGames()
         {
             var response = _gameService.GetGames(imageType: ImageType.medium);

@@ -1,0 +1,15 @@
+﻿@model IEnumerable<GameZone.Domain.Core.Entities.Category>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="col-6 mx-auto">
+    @foreach(var category in @Model) // TODO : Add if null model
+    {
+        <div class="row">
+            <p class="col-6">@category.Name</p>
+            <a class="btn btn-primary col-2 m-1">Edit</a>
+            <a class="btn btn-danger col-2 m-1">Delete</a>
+        </div>
+    }
+</div>
