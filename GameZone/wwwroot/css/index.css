@@ -3,6 +3,17 @@
     max-height: 38px;
 }
 
+/* Nav-bar maenu */
+.menu {
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.menu-transparent {
+    background-color: #0000007a !important;
+}
+
 
 /* ==== Game Card carousel ====*/
 .carousel .carousel-control {
