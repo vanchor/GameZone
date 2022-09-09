@@ -31,6 +31,12 @@ namespace GameZone.Service.Implementations
             throw new NotImplementedException();
         }
 
+        public IEnumerable<Game> SortGamesByDate(IEnumerable<Game> games)
+        {
+            var sortedGames = games.OrderByDescending(g => g.ReleaseDate);
+            return sortedGames;
+        }
+
         public BaseResponse<IEnumerable<Game>> GetGames(bool includeDeveloper = true, ImageType imageType = ImageType.fullSize)
         {
             try

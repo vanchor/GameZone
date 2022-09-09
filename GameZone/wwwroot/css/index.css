@@ -14,6 +14,48 @@
     background-color: #0000007a !important;
 }
 
+/* ===== Carousel ===== */
+#main_carousel .carousel-caption {
+    top: 50%;
+    transform: translateY(-50%);
+    bottom: initial;
+    width: 50%;
+    margin: 0 auto;
+}
+
+#main_carousel .carousel-inner {
+    background-color: rgb(0, 0, 0, 1);
+}
+
+#main_carousel .carousel-item::before {
+    content: "";
+    display: block;
+    padding-top: 41%;
+}
+
+#main_carousel .carousel-item {
+    max-height: 790px;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+.slide_img {
+    position: absolute;
+    margin: auto; 
+    min-height: 100%;
+    min-width: 100%;
+    left: -100%;
+    right: -100%;
+    top: -100%;
+    bottom: -100%;
+
+/*    position:relative;
+    object-fit: cover;
+    object-position: center center*/
+    opacity: 0.4;
+}
+
 
 /* ==== Game Card carousel ====*/
 .carousel .carousel-control {

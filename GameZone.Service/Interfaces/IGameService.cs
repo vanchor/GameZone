@@ -16,6 +16,7 @@ namespace GameZone.Service.Interfaces
         BaseResponse<IEnumerable<Game>> GetGame(string name, 
             bool includeDeveloper = true, 
             ImageType imageType = ImageType.fullSize);
+        IEnumerable<Game> SortGamesByDate(IEnumerable<Game> games);
 
     }
 }

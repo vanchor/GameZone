@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GameZone.Domain.Core.Entities.Game>
+﻿@model GameZone.ViewModels.GetGamesViewModel
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -6,6 +6,57 @@
 @section Styles {
     <link rel="stylesheet" href="~/css/index.css" type="text/css" />
 }
+
+<div id="main_carousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-indicators" id="mainCarouselIndicators">
+        @for(int i = 0; i < @Model.GamesForCarousel.Count(); i++)
+        {
+            var classes = "";
+            var aria_current = "";
+            if (i == 0) // Make first button active in carousel
+            {
+                classes += "active";
+                aria_current = "true";
+            }
+            <button type="button" data-bs-target="#main_carousel" 
+                data-bs-slide-to="@i" aria-label="Slide @i" class="@classes" aria-current="@aria_current">
+            </button>
+        }
+    </div>
+
+    <div class="carousel-inner" id="mainCarouselSlides">
+        @{var index = 0;}
+        @foreach (var game in @Model.GamesForCarousel)
+        {
+            var classes = "carousel-item";
+            if(index == 0)
+                classes += " active";
+
+            <div class="@classes">
+                @*<div class="slide_img d-block w-100" style="background-image: url(https://localhost:7124/images/Media/TheWitcher3/gerald_and_yennefer.jpg)"></div>*@
+                <img src="~/images/@game.Images.FirstOrDefault().Url" class="slide_img d-block w-100" alt="@game.Images.FirstOrDefault().Title">
+                <div class="carousel-caption">
+                    <p class="fs-1">@game.Name</p>
+                    <p class="fs-5 d-none d-lg-block">@game.Description</p>
+                    <div class="d-grid col-sm-5 mx-auto">
+                        <button type="button" class="btn btn-primary btn-lg rounded-pill" onclick="">Buy now</button> @{ /* TODO : Make hendler for OnClick */}
+                    </div>
+                </div>
+            </div>
+            index++;
+        }
+    </div>
+
+    <button class="carousel-control-prev" type="button" data-bs-target="#main_carousel" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#main_carousel" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
 
 <div class="container px-4 px-lg-5">
     <div class="gameCardHeader d-flex justify-content-between">
@@ -21,7 +72,7 @@
 
     
     <div class="row gx-4 gx-lg-4" id="game_cards">
-    @foreach (var game in @Model) // TODO : Add if null model
+    @foreach (var game in @Model.GamesWithSmallPictures) // TODO : Add if null model
     {
     var GameCarouselName = game.Name.Trim().Replace(' ', '_');
     var countOfPhotosInSlider = game.Images.Count < 9 ? game.Images.Count : 9;
@@ -47,7 +98,7 @@
                     </div>
 
                     <div class="carousel-inner">
-                        @{var index = 0;}
+                        @{index = 0;}
                         @foreach (var image in game.Images)
                         {
                             var classes = "carousel-item";
