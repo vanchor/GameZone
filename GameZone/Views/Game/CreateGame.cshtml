@@ -1,0 +1,41 @@
+﻿@model GameZone.ViewModels.GameVM.GameViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="col-2 mx-auto mt-5">
+    <form asp-controller="Game" asp-action="CreateGame">
+        <div class="form-group">
+            <label asp-for="@Model.Name"></label>
+            <input class="form-control" asp-for="@Model.Name" />
+
+            <span asp-validation-for="@Model.Name"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Description"></label>
+            <textarea  class="form-control" asp-for="@Model.Description" type="text" rows="10"></textarea >
+
+            <span asp-validation-for="@Model.Description"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.Price"></label>
+            <input class="form-control" asp-for="@Model.Price" type="number"/>
+
+            <span asp-validation-for="@Model.Price"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="@Model.ReleaseDate"></label>
+            <input class="form-control" asp-for="@Model.ReleaseDate" />
+
+            <span asp-validation-for="@Model.ReleaseDate"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="@Model.DeveloperId"></label>
+            <input class="form-control" asp-for="@Model.DeveloperId" type="number"/>
+
+            <span asp-validation-for="@Model.DeveloperId"></span>
+        </div>
+        <button class="btn btn-success" onclick="sumbit">Save</button>
+    </form>
+</div>

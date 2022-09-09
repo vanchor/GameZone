@@ -1,4 +1,4 @@
-﻿namespace GameZone.DataBase.Interfaces
+﻿namespace GameZone.DAL.Interfaces
 {
     public interface IBaseRepository<T>
         where T : class

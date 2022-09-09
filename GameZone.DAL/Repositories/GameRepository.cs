@@ -1,4 +1,4 @@
-﻿using GameZone.DataBase.Interfaces;
+﻿using GameZone.DAL.Interfaces;
 using GameZone.Domain.Core.Entities;
 using GameZone.Domain.Core.Enum;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameZone.DataBase.Repositories
+namespace GameZone.DAL.Repositories
 {
     public class GameRepository : IBaseRepository<Game>
     {
@@ -21,7 +21,7 @@ namespace GameZone.DataBase.Repositories
 
         public async Task Create(Game item)
         {
-            await _context.Games.AddAsync(item);
+            _context.Games.Add(item);
             await _context.SaveChangesAsync();
         }
 

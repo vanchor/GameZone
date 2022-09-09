@@ -1,4 +1,4 @@
-﻿using GameZone.DataBase.Interfaces;
+﻿using GameZone.DAL.Interfaces;
 using GameZone.Domain.Core.Entities;
 using GameZone.Domain.Core.Response;
 using GameZone.Service.Interfaces;

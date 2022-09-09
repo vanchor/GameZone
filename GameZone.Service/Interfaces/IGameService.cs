@@ -18,5 +18,8 @@ namespace GameZone.Service.Interfaces
             ImageType imageType = ImageType.fullSize);
         IEnumerable<Game> SortGamesByDate(IEnumerable<Game> games);
 
+        Task<BaseResponse<Game>> CreateGame(Game game);
+        Task<BaseResponse<bool>> DeleteGame(int id);
+
     }
 }

@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace GameZone.DataBase.Migrations
+namespace GameZone.DAL.Migrations
 {
     public partial class AddedMainEntities : Migration
     {

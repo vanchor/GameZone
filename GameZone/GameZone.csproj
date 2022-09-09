@@ -15,9 +15,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\GameZone.DataBase\GameZone.DataBase.csproj" />
+    <ProjectReference Include="..\GameZone.DAL\GameZone.DAL.csproj" />
     <ProjectReference Include="..\GameZone.Domain\GameZone.Domain.Core.csproj" />
-    <ProjectReference Include="..\GameZone.Persistence\GameZone.DataBase.csproj" />
     <ProjectReference Include="..\GameZone.Service\GameZone.Service.csproj" />
   </ItemGroup>
 

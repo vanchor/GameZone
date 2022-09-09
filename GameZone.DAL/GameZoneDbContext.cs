@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using GameZone.Domain.Core.Entities;
 
-namespace GameZone.DataBase
+namespace GameZone.DAL
 {
     public class GameZoneDbContext : DbContext
     {

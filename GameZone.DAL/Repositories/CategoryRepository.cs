@@ -1,4 +1,4 @@
-﻿using GameZone.DataBase.Interfaces;
+﻿using GameZone.DAL.Interfaces;
 using GameZone.Domain.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameZone.DataBase.Repositories
+namespace GameZone.DAL.Repositories
 {
     public class CategoryRepository : IBaseRepository<Category>
     {

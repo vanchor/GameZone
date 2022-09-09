@@ -1,4 +1,4 @@
-﻿using GameZone.DataBase.Interfaces;
+﻿using GameZone.DAL.Interfaces;
 using GameZone.Domain.Core.Entities;
 using GameZone.Domain.Core.Enum;
 using GameZone.Domain.Core.Response;
@@ -70,6 +70,57 @@ namespace GameZone.Service.Implementations
                     StatusCode = HttpStatusCode.InternalServerError
                 };
             }
-        }        
+        }
+
+        public async Task<BaseResponse<Game>> CreateGame(Game game)
+        {
+            try
+            {
+                await _gameRepository.Create(game);
+                return new BaseResponse<Game>() { 
+                    Data = game,
+                    StatusCode = HttpStatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Game>(){
+                    Description = $"[CreateGame] : {ex.Message}",
+                    StatusCode = HttpStatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<BaseResponse<bool>> DeleteGame(int id)
+        {
+            try
+            {
+                var game = await _gameRepository.Get().FirstOrDefaultAsync(g => g.Id == id);
+                if(game == null)
+                {
+                    return new BaseResponse<bool>() {
+                        Description = "Game not found",
+                        StatusCode = HttpStatusCode.NotFound,
+                        Data = false
+                    };
+                }
+
+                await _gameRepository.Delete(game);
+
+                return new BaseResponse<bool>()
+                {
+                    Data = true,
+                    StatusCode = HttpStatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<bool>() {
+                    Data = false,
+                    Description = $"[DeleteGame] : {ex.Message}",
+                    StatusCode = HttpStatusCode.InternalServerError
+                };
+            }
+        }
     }
 }
