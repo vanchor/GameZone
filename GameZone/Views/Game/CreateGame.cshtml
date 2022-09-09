@@ -4,7 +4,7 @@
 }
 
 <div class="col-2 mx-auto mt-5">
-    <form asp-controller="Game" asp-action="CreateGame">
+    <form asp-controller="Game" asp-action="CreateGame" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label asp-for="@Model.Name"></label>
             <input class="form-control" asp-for="@Model.Name" />
@@ -36,6 +36,20 @@
 
             <span asp-validation-for="@Model.DeveloperId"></span>
         </div>
-        <button class="btn btn-success" onclick="sumbit">Save</button>
+
+
+        <input type="file" name="photos" multiple="multiple" accept="image/*" /><br />
+
+@*        @if (Model.FileNames != null && Model.FileNames.Count > 0)
+        {
+            <ul>
+                @foreach (var fileName in Model.FileNames)
+                {
+                    <li><img src="~/images/@fileName" /></li>
+                }
+            </ul>
+        }*@
+
+        <button class="btn btn-success" onclick="submit">Save</button>
     </form>
 </div>

@@ -7,5 +7,7 @@
         public decimal Price { get; set; }
         public DateTime ReleaseDate { get; set; }
         public int DeveloperId { get; set; }
+
+        public IFormFile[] photos { get; set; }
     }
 }

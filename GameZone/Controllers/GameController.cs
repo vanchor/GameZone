@@ -11,10 +11,12 @@ namespace GameZone.Controllers
     public class GameController : Controller
     {
         private readonly IGameService _gameService;
+        private readonly IWebHostEnvironment _appEnvironment;
 
-        public GameController(IGameService gameService)
+        public GameController(IGameService gameService, IWebHostEnvironment appEnvironment)
         {
             _gameService = gameService;
+            _appEnvironment = appEnvironment;
         }
 
         public IActionResult GetGames()
@@ -41,20 +43,62 @@ namespace GameZone.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> CreateGame(GameViewModel gameViewModel)
+        public async Task<IActionResult> CreateGame(GameViewModel gameViewModel, IFormFile[] photos)
         {
+            ICollection<Image> images = new List<Image>();
+            var nameWithoutSpaces = gameViewModel.Name.Trim().Replace(" ", "_");
+
+            var pathToImagesFolder = Path.Combine(_appEnvironment.WebRootPath, 
+                                                    "images", "Media", nameWithoutSpaces);
+
+            foreach (IFormFile photo in photos)
+            {
+                var path = Path.Combine("Media", nameWithoutSpaces, photo.FileName);
+                images.Add(new Image()
+                {
+                    Url = path,
+                    Title = nameWithoutSpaces,
+                    Type = ImageType.fullSize
+                });
+            }
+
             var game = new Game()
             {
                 Name = gameViewModel.Name,
                 Description = gameViewModel.Description,
                 Price = gameViewModel.Price,
                 ReleaseDate = gameViewModel.ReleaseDate,
-                DeveloperId = gameViewModel.DeveloperId
+                DeveloperId = gameViewModel.DeveloperId,
+                Images = images
             };
 
             var response = await _gameService.CreateGame(game);
-            if(response.StatusCode == System.Net.HttpStatusCode.OK)
-                return RedirectToAction("GetCars");
+
+            DirectoryInfo di;
+            try
+            {
+                // Determine whether the directory not exists.
+                if (!Directory.Exists(pathToImagesFolder))
+                {
+                    // Try to create the directory.
+                    di = Directory.CreateDirectory(pathToImagesFolder);
+                }
+
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                {
+                    foreach (IFormFile photo in photos)
+                    {
+                        var path = Path.Combine(pathToImagesFolder, photo.FileName);
+                        var stream = new FileStream(path, FileMode.Create);
+                        photo.CopyToAsync(stream);
+                    }
+                    return RedirectToAction("GetGames");
+                }
+            }
+            catch (Exception ex)
+            {
+                return RedirectToAction("Error");
+            }
 
             return RedirectToAction("Error");
         }
