@@ -56,7 +56,7 @@ namespace GameZone.Controllers
                 DeveloperId = gameViewModel.DeveloperId,
                 Images = new List<Image>()
             };
-            var nameWithoutSpaces = gameViewModel.Name.Trim().Replace(" ", "_");
+            var nameWithoutSpaces = string.Join("_", gameViewModel.Name.Split(Path.GetInvalidFileNameChars()));
             var fullPathToGameFolder = FileHelper.FullPathToMedaiFolder(nameWithoutSpaces);
             FileHelper.CreateDirectory(fullPathToGameFolder);
             try
@@ -85,8 +85,8 @@ namespace GameZone.Controllers
                     FileHelper.ResizeImage(photo, Path.Combine(fullPathToGameFolder, photo.FileName+"400_225.jpg"), 400, 225);
                 }
 
-                //var response = await _gameService.CreateGame(game);
-                //if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                var response = await _gameService.CreateGame(game);
+                if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     return RedirectToAction("GetGames");
                 return RedirectToAction("Error");
             }

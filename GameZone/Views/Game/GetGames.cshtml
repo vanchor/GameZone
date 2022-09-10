@@ -73,7 +73,7 @@
     <div class="row gx-4 gx-lg-4" id="game_cards">
     @foreach (var game in @Model.GamesWithSmallPictures) // TODO : Add if null model
     {
-    var GameCarouselName = game.Name.Trim().Replace(' ', '_');
+    var GameCarouselName = "GameN" + game.Id;
     var countOfPhotosInSlider = game.Images.Count < 9 ? game.Images.Count : 9;
 
         <div class="col-lg-4 col-md-6 col-sm-6 mb-5">
