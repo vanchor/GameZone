@@ -1,0 +1,51 @@
+﻿using Microsoft.AspNetCore.Components.Forms;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+
+namespace GameZone.Common
+{
+    public static class FileHelper
+    {
+        public static string FullPathToMedaiFolder(string folderInMedia)
+        {
+            return Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "images", "Media", folderInMedia);
+        }
+
+        public static void CreateDirectory(string fullPath)
+        {
+            if (fullPath == null)
+                throw new ArgumentNullException(nameof(fullPath));
+
+            DirectoryInfo di;
+            if (!Directory.Exists(fullPath))
+                di = Directory.CreateDirectory(fullPath);
+        }
+
+        public static async Task UploadFile(IFormFile file, string imagePath)
+        {
+            if (imagePath == null)
+                throw new ArgumentNullException(nameof(imagePath));
+
+            if (file is not null)
+            {
+                using (var stream = File.Create(imagePath))
+                {
+                    await file.CopyToAsync(stream);
+                }
+            }
+        }
+
+        public static void ResizeImage(IFormFile file, string imagePath, int newWidth, int newHeight)
+        {
+            if (!file.ContentType.Contains("image"))
+                throw new ArgumentException("The file is not an image!");
+            if (newWidth <= 0 || newHeight <= 0)
+                throw new ArgumentException("Width and height of the picture cannot be less than 0!");
+
+            Image image = Image.FromStream(file.OpenReadStream(), true, true);
+            Bitmap resized = new Bitmap(image, newWidth, newHeight);
+            resized.Save(imagePath);
+        }
+    }
+}

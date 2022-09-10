@@ -33,8 +33,7 @@
                 classes += " active";
 
             <div class="@classes">
-                @*<div class="slide_img d-block w-100" style="background-image: url(https://localhost:7124/images/Media/TheWitcher3/gerald_and_yennefer.jpg)"></div>*@
-                <img src="~/images/@game.Images.FirstOrDefault().Url" class="slide_img d-block w-100" alt="@game.Images.FirstOrDefault().Title">
+                <img src="~/images/Media/@game.Images.FirstOrDefault().Url" class="slide_img d-block w-100" alt="@game.Images.FirstOrDefault().Title">
                 <div class="carousel-caption">
                     <p class="fs-1">@game.Name</p>
                     <p class="fs-5 d-none d-lg-block">@game.Description</p>
@@ -105,7 +104,7 @@
                             if(index == 0)
                                 classes += " active";
 
-                            <div class="@classes"><img src="~/images/@image.Url" class="d-block w-100" alt="@image.Title"></div>
+                            <div class="@classes"><img src="~/images/Media/@image.Url" class="d-block w-100" alt="@image.Title"></div>
                             index++;
                             if (index > 8)
                                 break;

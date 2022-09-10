@@ -40,15 +40,31 @@
 
         <input type="file" name="photos" multiple="multiple" accept="image/*" /><br />
 
+        @if (ViewBag.ImageURLs != null && ViewBag.ImageURls)
+        {
+            @foreach(var imagePath in ViewBag.ImageURLs)
+            {
+                <img src="@imagePath" width="300px" height="200px" />
+            }
+        }
+
+
 @*        @if (Model.FileNames != null && Model.FileNames.Count > 0)
         {
             <ul>
                 @foreach (var fileName in Model.FileNames)
                 {
-                    <li><img src="~/images/@fileName" /></li>
+                    <li><img src="~/images/Media/@fileName" /></li>
                 }
             </ul>
         }*@
+
+        <div class="progress">
+            <div class="progress-bar" role="progressbar"
+                 style="width: @ViewBag.progressPercent%" area-valuenow="@ViewBag.progressPercent"
+                 area-valuemin="0" area-valuemax="100">
+            </div>
+        </div>
 
         <button class="btn btn-success" onclick="submit">Save</button>
     </form>

@@ -1,4 +1,5 @@
-﻿using GameZone.Domain.Core.Entities;
+﻿using GameZone.Common;
+using GameZone.Domain.Core.Entities;
 using GameZone.Domain.Core.Enum;
 using GameZone.Service.Interfaces;
 using GameZone.ViewModels;
@@ -42,26 +43,10 @@ namespace GameZone.Controllers
             return View();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> CreateGame(GameViewModel gameViewModel, IFormFile[] photos)
+        [HttpPost]  
+        [RequestSizeLimit(100_000_000)]
+        public async Task<IActionResult> CreateGame(GameViewModel gameViewModel, List<IFormFile> photos)
         {
-            ICollection<Image> images = new List<Image>();
-            var nameWithoutSpaces = gameViewModel.Name.Trim().Replace(" ", "_");
-
-            var pathToImagesFolder = Path.Combine(_appEnvironment.WebRootPath, 
-                                                    "images", "Media", nameWithoutSpaces);
-
-            foreach (IFormFile photo in photos)
-            {
-                var path = Path.Combine("Media", nameWithoutSpaces, photo.FileName);
-                images.Add(new Image()
-                {
-                    Url = path,
-                    Title = nameWithoutSpaces,
-                    Type = ImageType.fullSize
-                });
-            }
-
             var game = new Game()
             {
                 Name = gameViewModel.Name,
@@ -69,38 +54,46 @@ namespace GameZone.Controllers
                 Price = gameViewModel.Price,
                 ReleaseDate = gameViewModel.ReleaseDate,
                 DeveloperId = gameViewModel.DeveloperId,
-                Images = images
+                Images = new List<Image>()
             };
-
-            var response = await _gameService.CreateGame(game);
-
-            DirectoryInfo di;
+            var nameWithoutSpaces = gameViewModel.Name.Trim().Replace(" ", "_");
+            var fullPathToGameFolder = FileHelper.FullPathToMedaiFolder(nameWithoutSpaces);
+            FileHelper.CreateDirectory(fullPathToGameFolder);
             try
             {
-                // Determine whether the directory not exists.
-                if (!Directory.Exists(pathToImagesFolder))
+                foreach (IFormFile photo in photos)
                 {
-                    // Try to create the directory.
-                    di = Directory.CreateDirectory(pathToImagesFolder);
+                    var path = Path.Combine(nameWithoutSpaces, photo.FileName);
+                    game.Images.Add(new Image()
+                    {
+                        Url = path,
+                        Title = nameWithoutSpaces,
+                        Type = ImageType.fullSize
+                    });
+
+                    await FileHelper.UploadFile(photo, Path.Combine(fullPathToGameFolder, photo.FileName));
+
+                    // Resize image to 400x225
+                    path = path + "400_225.jpg";
+                    game.Images.Add(new Image()
+                    {
+                        Url = path,
+                        Title = nameWithoutSpaces,
+                        Type = ImageType.medium
+                    });
+
+                    FileHelper.ResizeImage(photo, Path.Combine(fullPathToGameFolder, photo.FileName+"400_225.jpg"), 400, 225);
                 }
 
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                {
-                    foreach (IFormFile photo in photos)
-                    {
-                        var path = Path.Combine(pathToImagesFolder, photo.FileName);
-                        var stream = new FileStream(path, FileMode.Create);
-                        photo.CopyToAsync(stream);
-                    }
+                //var response = await _gameService.CreateGame(game);
+                //if (response.StatusCode == System.Net.HttpStatusCode.OK)
                     return RedirectToAction("GetGames");
-                }
+                return RedirectToAction("Error");
             }
             catch (Exception ex)
             {
                 return RedirectToAction("Error");
             }
-
-            return RedirectToAction("Error");
         }
     }
 }
