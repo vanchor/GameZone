@@ -16,7 +16,6 @@ namespace GameZone.Components
         public IViewComponentResult Invoke()
         {
             var response = _companyService.GetCompanies();
-
             return View(response.Data);
         }
     }

@@ -13,7 +13,7 @@
 
     <form asp-controller="Game" asp-action="CreateGame" method="post" enctype="multipart/form-data">
         @await Component.InvokeAsync("ListOfDevelopers")
-        
+
         <div class="row col-8 mx-auto">
             <div class="col-5 mt-5">
                 <div class="form-group">
@@ -37,14 +37,9 @@
                 </div>
 
                 <div class="form-group">
-                    <label asp-for="@Model.DeveloperId"></label>
-                    <input id="DeveloperId" class="form-control" asp-for="@Model.DeveloperId" type="hidden"/>
-
-                    <a class="list-group-item list-group-item-action p-2">
-                        <img id="DeveloperLogo" src="" alt="Logo" width="40px" class="rounded" />
-                        <span id="DeveloperName" class="align-middle"></span>
-                    </a>
-
+                    <input id="DeveloperId" class="form-control" asp-for="@Model.DeveloperId" type="hidden" />
+                    <label for="DeveloperName">Developer:</label>
+                    <input id="DeveloperName" class="form-control col-7" value="Game Developer" disabled readonly>
 
                     <button type="button" class="btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#listOfDevelopers">
                         Choose a developer
@@ -85,9 +80,9 @@
     </form>
 
 
-@section scripts
-{
-        
+    @section scripts
+    {
+
     <script src="~/js/SearchInList.js"></script>
     <script>
         function addPreviewImages() {
