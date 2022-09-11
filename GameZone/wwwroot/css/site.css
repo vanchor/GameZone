@@ -44,3 +44,21 @@ body {
     display: block;
     margin-top: 0;
 }
+
+/*.pop_ups {
+    z-index: 20;
+    position: absolute;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    box-shadow: 0 0 1000px black;
+
+    padding: 40px;
+    font-family: Arial;
+    display: none;
+}
+
+.pop_ups .rounded-pill {
+    width: 100%;
+}*/

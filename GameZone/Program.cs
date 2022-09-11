@@ -21,6 +21,9 @@ builder.Services.AddScoped<IGameService, GameService>();
 builder.Services.AddScoped<IBaseRepository<Category>, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
+builder.Services.AddScoped<IBaseRepository<Company>, CompanyRepository>();
+builder.Services.AddScoped<ICompanyService, CompanyService>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

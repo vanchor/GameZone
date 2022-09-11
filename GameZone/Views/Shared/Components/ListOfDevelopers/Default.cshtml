@@ -1,0 +1,25 @@
+﻿<div class="modal fade" id="listOfDevelopers" tabindex="-1" aria-labelledby="listOfDevelopers" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable  ">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Developers</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <input class="form-control" type="text" id="searchName" onkeyup="findByNameInList('searchName', 'companyList')" placeholder="Search by name..." title="Type in a name">
+                <br />
+
+                <div class="list-group" id="companyList">
+                    @foreach (var company in Model)
+                    {
+                        <a class="list-group-item list-group-item-action  p-2" onclick="clickItem(@company.Id, '@company.Name', '@company.LogoUrl')">
+                            <img src="~/images/Media/@company.LogoUrl" alt="Logo" width="40px" class="rounded" />
+                            <span class="align-middle">@company.Name</span>
+                        </a>
+                    }
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
