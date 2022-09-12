@@ -1,6 +1,8 @@
-﻿using GameZone.Domain.Core.Entities;
+﻿using GameZone.Common;
+using GameZone.Domain.Core.Entities;
 using GameZone.Domain.Core.Response;
 using GameZone.Service.Interfaces;
+using GameZone.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace GameZone.Components

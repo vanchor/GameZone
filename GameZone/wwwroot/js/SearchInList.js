@@ -15,7 +15,6 @@ function findByNameInList(inputFieldId, listBlockId, tagNameOfOneItemInList = "a
     }
 }
 
-
 function clickItem(Id, Name) {
     $("#DeveloperId").val(Id);
     $("#DeveloperName").val(Name);

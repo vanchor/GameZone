@@ -12,12 +12,15 @@ namespace GameZone.Controllers
     public class GameController : Controller
     {
         private readonly IGameService _gameService;
-        private readonly IWebHostEnvironment _appEnvironment;
 
-        public GameController(IGameService gameService, IWebHostEnvironment appEnvironment)
+        public GameController(IGameService gameService)
         {
             _gameService = gameService;
-            _appEnvironment = appEnvironment;
+        }
+
+        public IActionResult ReloadDevelopersList()
+        {
+            return ViewComponent("ListOfDevelopers");
         }
 
         public IActionResult GetGames()
@@ -56,6 +59,7 @@ namespace GameZone.Controllers
                 DeveloperId = gameViewModel.DeveloperId,
                 Images = new List<Image>()
             };
+
             var nameWithoutSpaces = string.Join("_", gameViewModel.Name.Split(Path.GetInvalidFileNameChars()));
             var fullPathToGameFolder = FileHelper.FullPathToMedaiFolder(nameWithoutSpaces);
             FileHelper.CreateDirectory(fullPathToGameFolder);

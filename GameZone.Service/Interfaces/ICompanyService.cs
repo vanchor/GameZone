@@ -5,6 +5,7 @@ namespace GameZone.Service.Interfaces
 {
     public interface ICompanyService
     {
-        BaseResponse<IEnumerable<Company>> GetCompanies(bool includeGames = false);
+        BaseResponse<IEnumerable<Company>> GetCompanies (bool includeGames = false);
+        Task<BaseResponse<Company>> CreateCompany (Company company);
     }
 }

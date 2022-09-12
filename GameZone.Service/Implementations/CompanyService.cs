@@ -20,6 +20,25 @@ namespace GameZone.Service.Implementations
             _companyRepository = companyRepository;
         }
 
+        public async Task<BaseResponse<Company>> CreateCompany(Company company)
+        {
+            try
+            {
+                await _companyRepository.Create(company);
+                return new BaseResponse<Company>() {
+                    Data = company,
+                    StatusCode = System.Net.HttpStatusCode.OK
+                };
+            }
+            catch(Exception ex)
+            {
+                return new BaseResponse<Company>() {
+                    Description = $"[CreateCompany] : {ex.Message}",
+                    StatusCode = System.Net.HttpStatusCode.InternalServerError
+                };
+            }
+        }
+
         public BaseResponse<IEnumerable<Company>> GetCompanies(bool includeGames = false)
         {
             try
