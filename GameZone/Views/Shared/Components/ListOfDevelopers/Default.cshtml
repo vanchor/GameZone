@@ -1,7 +1,14 @@
 ﻿@model IEnumerable<GameZone.Domain.Core.Entities.Company>
 
-
-<input class="form-control" type="text" id="searchName" onkeyup="findByNameInList('searchName', 'companyList')" placeholder="Search by name..." title="Type in a name">
+<div class="d-flex align-items-center">
+    <button class="btn btn-outline-secondary rounded-circle me-3" onclick="ReloadDevelopersList()">
+        <i class="bi bi-arrow-clockwise fs-4"></i>
+    </button>
+    
+    <input class="form-control" type="text" id="searchName" 
+            onkeyup="findByNameInList('searchName', 'companyList')" 
+            placeholder="Search by name..." title="Type in a name">
+</div>
 <br />
 
 <div class="list-group" id="companyList">

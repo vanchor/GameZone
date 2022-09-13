@@ -4,109 +4,109 @@
 }
 @section Styles {
     <style>
-        .csrollImages{
-            max-width: 927px;
+        .csrollImages {
+            max-width: 80%;
             width: fit-content;
         }
     </style>
 }
 
-    <form asp-controller="Game" asp-action="CreateGame" method="post" enctype="multipart/form-data">
-        <div class="row col-8 mx-auto mt-5">
-            <div class="col-5">
-                <div class="form-group mb-2">
-                    <label asp-for="@Model.Name"></label>
-                    <input class="form-control" asp-for="@Model.Name" />
+    <div class="container">
+        <form asp-controller="Game" asp-action="CreateGame" method="post" enctype="multipart/form-data">
+            <div class="row mx-auto mt-5">
+                <div class="col-md-5">
+                    <div class="form-group mb-2">
+                        <label asp-for="@Model.Name"></label>
+                        <input class="form-control" asp-for="@Model.Name" />
 
-                    <span asp-validation-for="@Model.Name"></span>
-                </div>
-
-                <div class="form-group  mb-2">
-                    <label asp-for="@Model.Price"></label>
-                    <input class="form-control" asp-for="@Model.Price" type="number" step="0.01" />
-
-                    <span asp-validation-for="@Model.Price"></span>
-                </div>
-                <div class="form-group  mb-2">
-                    <label asp-for="@Model.ReleaseDate"></label>
-                    <input class="form-control" asp-for="@Model.ReleaseDate" />
-
-                    <span asp-validation-for="@Model.ReleaseDate"></span>
-                </div>
-
-                <div class="form-group mb-2">
-                    <input id="DeveloperId" class="form-control" asp-for="@Model.DeveloperId" type="hidden" />
-                    <label for="DeveloperName">Developer:</label>
-                    <div class="row g-0">
-                        <div class="col-7">
-                            <input id="DeveloperName" class="form-control" value="Game Developer" disabled readonly>
-                        </div>
-                        <button type="button" class="btn-sm btn-primary col-5" data-bs-toggle="modal" data-bs-target="#listOfDevelopers">
-                            Choose a developer
-                        </button>
+                        <span asp-validation-for="@Model.Name"></span>
                     </div>
 
+                    <div class="form-group  mb-2">
+                        <label asp-for="@Model.Price"></label>
+                        <input class="form-control" asp-for="@Model.Price" type="number" step="0.01" />
+
+                        <span asp-validation-for="@Model.Price"></span>
+                    </div>
+                    <div class="form-group  mb-2">
+                        <label asp-for="@Model.ReleaseDate"></label>
+                        <input class="form-control" asp-for="@Model.ReleaseDate" />
+
+                        <span asp-validation-for="@Model.ReleaseDate"></span>
+                    </div>
+
+                    <div class="form-group mb-2">
+                        <input id="DeveloperId" class="form-control" asp-for="@Model.DeveloperId" type="hidden" />
+                        <label for="DeveloperName">Developer:</label>
+                        <div class="row g-0">
+                            <div class="col-7">
+                                <input id="DeveloperName" class="form-control" value="Game Developer" disabled readonly>
+                            </div>
+                            <button type="button" class="btn-sm btn-primary col-5" data-bs-toggle="modal" data-bs-target="#listOfDevelopers">
+                                Choose a developer
+                            </button>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group mb-2">
+                        <label for="imgInp">Game Photos:</label>
+                        <input OnChange="addPreviewImages()" class="form-control" type="file" name="photos" id="imgInp" accept="image/*" multiple>
+                    </div>
                 </div>
 
+                <div class="col-md-7">
+                    <div class="form-group mb-2">
+                        <label asp-for="@Model.Description"></label>
+                        <textarea class="form-control" asp-for="@Model.Description" type="text" rows="10"></textarea>
 
-                <div class="form-group mb-2">
-                    <label for="imgInp">Game Photos:</label>
-                    <input OnChange="addPreviewImages()" class="form-control" type="file" name="photos" id="imgInp" accept="image/*" multiple>
+                        <span asp-validation-for="@Model.Description"></span>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-7">
-                <div class="form-group mb-2">
-                    <label asp-for="@Model.Description"></label>
-                    <textarea class="form-control" asp-for="@Model.Description" type="text" rows="10"></textarea>
+            <div class="mx-auto csrollImages">
+                <h2>Selected images:</h2>
+                <div id="previewScroll" class="shadow">
+                    <div id="previewImages">
+                        Images not selected
+                    </div>
+                </div>
+            </div>
 
-                    <span asp-validation-for="@Model.Description"></span>
+            @*	<div class="progress">
+        <div class="progress-bar" role="progressbar"
+        style="width: @ViewBag.progressPercent%" area-valuenow="@ViewBag.progressPercent"
+        area-valuemin="0" area-valuemax="100">
+        </div>
+        </div>*@
+
+            <div class="row justify-content-center mt-3">
+                <button class="btn btn-success col-2 col-xl-1" onclick="submit">Save</button>
+            </div>
+        </form>
+
+        <div class="modal fade" id="listOfDevelopers" tabindex="-1" aria-labelledby="listOfDevelopers" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-scrollable  ">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Developers</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="popUpsList">
+
+                        @await Component.InvokeAsync("ListOfDevelopers")
+
+                    </div>
+                    <div class="modal-footer">
+                        <a class="btn btn-primary" href="@Url.Action("CreateCompany", "Company")" target="_blank">Add new developer</a>
+                        <button type="button" class="btn btn-success" data-bs-dismiss="modal">Save changes</button>
+                    </div>
                 </div>
             </div>
         </div>
-
-        <div class="mx-auto csrollImages">
-            <h2>Selected images:</h2>
-            <div id="previewScroll" class="shadow">
-                <div id="previewImages">
-                    Images not selected
-                </div>
-            </div>
-        </div>
-
-        @*	<div class="progress">
-    <div class="progress-bar" role="progressbar"
-    style="width: @ViewBag.progressPercent%" area-valuenow="@ViewBag.progressPercent"
-    area-valuemin="0" area-valuemax="100">
     </div>
-    </div>*@
-
-        <div class="row justify-content-center mt-3">
-            <button class="btn btn-success col-1" onclick="submit">Save</button>
-        </div>
-    </form>
-
-    <div class="modal fade" id="listOfDevelopers" tabindex="-1" aria-labelledby="listOfDevelopers" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered  modal-dialog-scrollable  ">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="btn btn-primary" onclick="ReloadDevelopersList()">Reload</button>
-                    <h5 class="modal-title" id="exampleModalLabel">Developers</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body" id="popUpsList">
-
-                    @await Component.InvokeAsync("ListOfDevelopers")
-
-                </div>
-                <div class="modal-footer">
-                    <a class="btn btn-primary" href="@Url.Action("CreateCompany", "Company")" target="_blank">Add new developer</a>
-                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
     @section scripts
     {
@@ -132,7 +132,7 @@
         function ReloadDevelopersList() {
             $.ajax({
                 url: '@Url.Action("ReloadDevelopersList", "Game")', type: "GET",
-                success: function (data) {
+                success: function(data) {
                     $("#popUpsList").html(data);
                 }
             })
