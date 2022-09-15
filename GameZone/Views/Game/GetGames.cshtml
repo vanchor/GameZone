@@ -57,7 +57,7 @@
 </div>
 
 
-<div class="container px-4 px-lg-5">
+<div class="container mt-5">
     <div class="gameCardHeader d-flex justify-content-between">
         <p class="fs-3">SPECIAL OFFERS</p>
         @{
@@ -78,6 +78,10 @@
 
         <div class="col-lg-4 col-md-6 col-sm-6 mb-5">
             <div class="card h-100">
+                <div class="adminActionsGame">
+                    <a href="#"><i class="bi bi-pencil"></i></a>
+                    <a href="#" class="deleteBtn"><i class="bi bi-trash3"></i></a>    
+                </div>
                 <div id="@GameCarouselName" class="carousel game_card_carousel slide carousel-fade" data-bs-touch="false" data-bs-interval="false">
                     <div class="carousel-indicators">
                         @for (int i = 0; i < countOfPhotosInSlider; i++)
@@ -109,7 +113,6 @@
                             if (index > 8)
                                 break;
                         }
-
                     </div>
 
                     <button class="carousel-control-prev carousel-control" type="button" data-bs-target="#@GameCarouselName" data-bs-slide="prev">
@@ -127,18 +130,16 @@
                     <h6 class="card-subtitle mb-2 text-muted">@game.Developer.Name (@game.ReleaseDate.ToString("dd.MM.yyyy"))</h6>
                 </div>
                 <div class="card-footer">
-                    @{
-                        /*TODO: Add BUY button handler */
-                    }
+                    @{ /*TODO: Add BUY button handler */ }
                     <button type="button" class="btn btn-outline-dark">Buy now</button>
                          
-                    @{
-                        /*TODO: Add Favourity */
-                    }
+                    @{ /*TODO: Add Favourity */ }
                     <span class="material-icons favorite" onclick="addToFavorite('Dying Light')">favorite_border</span>
                     <p class="float-end fs-5">@game.Price.ToString("N")$</p>
                 </div>
             </div>
+
+           
         </div>
     }
     </div>

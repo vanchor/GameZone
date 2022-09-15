@@ -5,7 +5,7 @@ using GameZone.Service.Interfaces;
 using GameZone.ViewModels;
 using GameZone.ViewModels.GameVM;
 using Microsoft.AspNetCore.Mvc;
-using System.Dynamic;
+using GameZone.Common.Mappings;
 
 namespace GameZone.Controllers
 {
@@ -23,18 +23,18 @@ namespace GameZone.Controllers
             return ViewComponent("ListOfDevelopers");
         }
 
-        public IActionResult GetGames()
+        public async Task<IActionResult> GetGames()
         {
             var viewModel = new GetGamesViewModel();
-            var response = _gameService.GetGames(imageType: ImageType.medium);
-            if (response.StatusCode == System.Net.HttpStatusCode.OK)
+            var response1 = await _gameService.GetGames(imageType: ImageType.medium);
+            var response2 = await _gameService.GetGames(count: 5, includeDeveloper: false, sorter: x => x.ReleaseDate);
+            if (response1.StatusCode == System.Net.HttpStatusCode.OK && 
+                response2.StatusCode == System.Net.HttpStatusCode.OK )
             {
-                viewModel.GamesWithSmallPictures = response.Data;
-
-                response = _gameService.GetGames(includeDeveloper: false);
-                viewModel.GamesForCarousel = _gameService.SortGamesByDate(response.Data);
+                viewModel.GamesWithSmallPictures = response1.Data;
+                viewModel.GamesForCarousel = response2.Data;
                 return View(viewModel);
-            }
+            }   
 
 
             return RedirectToAction("Error");
@@ -50,15 +50,7 @@ namespace GameZone.Controllers
         [RequestSizeLimit(100_000_000)]
         public async Task<IActionResult> CreateGame(GameViewModel gameViewModel, List<IFormFile> photos)
         {
-            var game = new Game()
-            {
-                Name = gameViewModel.Name,
-                Description = gameViewModel.Description,
-                Price = gameViewModel.Price,
-                ReleaseDate = gameViewModel.ReleaseDate,
-                DeveloperId = gameViewModel.DeveloperId,
-                Images = new List<Image>()
-            };
+            var game = gameViewModel.ToGame();
 
             var nameWithoutSpaces = string.Join("_", gameViewModel.Name.Split(Path.GetInvalidFileNameChars()));
             var fullPathToGameFolder = FileHelper.FullPathToMedaiFolder(nameWithoutSpaces);

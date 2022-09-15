@@ -105,3 +105,26 @@
     flex-wrap: wrap;
     margin-bottom: 20px;
 }
+
+.adminActionsGame {
+    position: absolute;
+    z-index: 5;
+    font-size: 23px;
+    right: 17px;
+    top: 10px;
+}
+
+.adminActionsGame a {
+    color: white;
+    opacity: .5;
+    transition: 0.3s linear;
+}
+
+.adminActionsGame a:hover {
+    opacity: 1;
+}
+
+.deleteBtn:hover {
+    opacity: 1;
+    color:red;
+}

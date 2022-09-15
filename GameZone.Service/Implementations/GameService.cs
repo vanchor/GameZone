@@ -7,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,22 +32,25 @@ namespace GameZone.Service.Implementations
             throw new NotImplementedException();
         }
 
-        public IEnumerable<Game> SortGamesByDate(IEnumerable<Game> games)
-        {
-            var sortedGames = games.OrderByDescending(g => g.ReleaseDate);
-            return sortedGames;
-        }
-
-        public BaseResponse<IEnumerable<Game>> GetGames(bool includeDeveloper = true, ImageType imageType = ImageType.fullSize)
+        public async Task<BaseResponse<IEnumerable<Game>>> GetGames(int? count = null,
+                                                        bool includeDeveloper = true,
+                                                        ImageType imageType = ImageType.fullSize,
+                                                        Expression<Func<Game, object>> sorter = null)
         {
             try
             {
                 var queryable = _gameRepository.Get();
 
-                if (includeDeveloper)
-                    queryable = queryable.Include(g => g.Developer);
+                if (sorter != null)
+                    queryable = queryable.OrderByDescending(sorter);
 
-                var games = queryable.Include(g => g.Images.Where(i => i.Type == imageType)).ToList();
+                if (count != null && count > 0 && count < queryable.Count())
+                    queryable = queryable.Take((int)count);
+
+                if (includeDeveloper)   
+                    queryable = queryable.Include(g => g.Developer);
+ 
+                var games = await queryable.Include(g => g.Images.Where(i => i.Type == imageType)).ToListAsync();
 
                 if (games.Count() == 0)
                 {
