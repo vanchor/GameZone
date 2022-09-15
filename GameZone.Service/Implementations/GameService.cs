@@ -22,14 +22,71 @@ namespace GameZone.Service.Implementations
             _gameRepository = gameRepository;
         }
 
-        public BaseResponse<IEnumerable<Game>> GetGame(int id, bool includeDeveloper, ImageType imageType)
+        public async Task<BaseResponse<Game>> GetGame(int id, bool includeDeveloper = true, ImageType imageType = ImageType.fullSize)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var queryable = _gameRepository.Get();
+
+                if (includeDeveloper)
+                    queryable = queryable.Include(g => g.Developer);
+                
+                var game = await queryable.Include(g => g.Images.Where(i => i.Type == imageType)).FirstOrDefaultAsync(x => x.Id == id);
+
+                if(game == null)
+                    return new BaseResponse<Game>() { 
+                        Description = "Game not found",
+                        StatusCode = HttpStatusCode.NotFound
+                    };
+
+                return new BaseResponse<Game>() {
+                    Data = game,
+                    StatusCode = HttpStatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Game>() { 
+                    Description = $"[GetGameById] : {ex.Message}",
+                    StatusCode = HttpStatusCode.InternalServerError
+                };
+            }
         }
 
-        public BaseResponse<IEnumerable<Game>> GetGame(string name, bool includeDeveloper, ImageType imageType)
+        public async Task<BaseResponse<IEnumerable<Game>>> GetGame(string name, bool includeDeveloper = false, ImageType imageType = ImageType.fullSize)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var queryable = _gameRepository.Get();
+
+                if (includeDeveloper)
+                    queryable = queryable.Include(g => g.Developer);
+
+                var games = await queryable.Include(g => g.Images.Where(i => i.Type == imageType))
+                                            .Where(g => EF.Functions.Like(g.Name, $"%{name}%"))
+                                            .ToListAsync();
+
+                if (games == null)
+                    return new BaseResponse<IEnumerable<Game>>()
+                    {
+                        Description = "Games not found",
+                        StatusCode = HttpStatusCode.NotFound
+                    };
+
+                return new BaseResponse<IEnumerable<Game>>()
+                {
+                    Data = games,
+                    StatusCode = HttpStatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<IEnumerable<Game>>()
+                {
+                    Description = $"[GetGameById] : {ex.Message}",
+                    StatusCode = HttpStatusCode.InternalServerError
+                };
+            }
         }
 
         public async Task<BaseResponse<IEnumerable<Game>>> GetGames(int? count = null,
@@ -81,6 +138,7 @@ namespace GameZone.Service.Implementations
             try
             {
                 await _gameRepository.Create(game);
+
                 return new BaseResponse<Game>() { 
                     Data = game,
                     StatusCode = HttpStatusCode.OK
@@ -122,6 +180,52 @@ namespace GameZone.Service.Implementations
                 return new BaseResponse<bool>() {
                     Data = false,
                     Description = $"[DeleteGame] : {ex.Message}",
+                    StatusCode = HttpStatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<BaseResponse<Game>> UpdateGame(Game game)
+        {
+            try
+            {
+                var gameInDB = await _gameRepository.Get().FirstOrDefaultAsync(x => x.Id == game.Id);
+                if(gameInDB == null)
+                    return new BaseResponse<Game>() {
+                        Description = "Game not found",
+                        StatusCode = HttpStatusCode.OK
+                    };
+                
+                await _gameRepository.Update(game);
+                return new BaseResponse<Game>() { 
+                    StatusCode = HttpStatusCode.OK,
+                    Data = game
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<Game>() { 
+                    Description = $"[UpdateGane] : {ex.Message}",
+                    StatusCode = HttpStatusCode.InternalServerError
+                };
+            }
+        }
+
+        public async Task<BaseResponse<int>> GetLastId()
+        {
+            try
+            {
+                int lastID = await _gameRepository.Get().OrderByDescending(x => x.Id).Select(x => x.Id).FirstAsync();
+
+                return new BaseResponse<int>{
+                    Data = lastID,
+                    StatusCode = HttpStatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new BaseResponse<int>(){
+                    Description = $"[GetLastId] : {ex.Message}",
                     StatusCode = HttpStatusCode.InternalServerError
                 };
             }

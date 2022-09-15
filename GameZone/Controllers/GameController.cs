@@ -6,6 +6,7 @@ using GameZone.ViewModels;
 using GameZone.ViewModels.GameVM;
 using Microsoft.AspNetCore.Mvc;
 using GameZone.Common.Mappings;
+using System.Net;
 
 namespace GameZone.Controllers
 {
@@ -28,15 +29,28 @@ namespace GameZone.Controllers
             var viewModel = new GetGamesViewModel();
             var response1 = await _gameService.GetGames(imageType: ImageType.medium);
             var response2 = await _gameService.GetGames(count: 5, includeDeveloper: false, sorter: x => x.ReleaseDate);
-            if (response1.StatusCode == System.Net.HttpStatusCode.OK && 
-                response2.StatusCode == System.Net.HttpStatusCode.OK )
+            if (response1.StatusCode == HttpStatusCode.OK &&
+                response2.StatusCode == HttpStatusCode.OK)
             {
                 viewModel.GamesWithSmallPictures = response1.Data;
                 viewModel.GamesForCarousel = response2.Data;
                 return View(viewModel);
-            }   
+            }
 
 
+            return RedirectToAction("Error");
+        }
+
+        public async Task<IActionResult> Delete(int id)
+        {
+            var response = await _gameService.DeleteGame(id);
+
+            if (response.StatusCode == HttpStatusCode.OK) {
+                var path = FileHelper.FullPathToMedaiFolder($"Games\\{id}");
+                if (Directory.Exists(path))
+                    Directory.Delete(path);
+                return RedirectToAction("GetGames");
+            }
             return RedirectToAction("Error");
         }
 
@@ -46,43 +60,48 @@ namespace GameZone.Controllers
             return View();
         }
 
-        [HttpPost]  
+        [HttpPost]
         [RequestSizeLimit(100_000_000)]
         public async Task<IActionResult> CreateGame(GameViewModel gameViewModel, List<IFormFile> photos)
         {
             var game = gameViewModel.ToGame();
 
-            var nameWithoutSpaces = string.Join("_", gameViewModel.Name.Split(Path.GetInvalidFileNameChars()));
-            var fullPathToGameFolder = FileHelper.FullPathToMedaiFolder(nameWithoutSpaces);
-            FileHelper.CreateDirectory(fullPathToGameFolder);
             try
             {
-                foreach (IFormFile photo in photos)
+                if (photos != null)
                 {
-                    var path = Path.Combine(nameWithoutSpaces, photo.FileName);
-                    game.Images.Add(new Image()
+                    var req = await _gameService.GetLastId();
+                    if (req.StatusCode != HttpStatusCode.OK)
+                        return RedirectToAction("Error");
+                    var gameId = req.Data + 1;
+                    var fullPathToGameFolder = FileHelper.FullPathToMedaiFolder($"Game\\{gameId}");
+
+                    FileHelper.CreateDirectory(fullPathToGameFolder);
+
+                    foreach (IFormFile photo in photos)
                     {
-                        Url = path,
-                        Title = nameWithoutSpaces,
-                        Type = ImageType.fullSize
-                    });
+                        var path = Path.Combine(gameId.ToString(), photo.FileName);
+                        game.Images.Add(new Image(){
+                            Url = path,
+                            Title = game.Name,
+                            Type = ImageType.fullSize
+                        });
+                        await FileHelper.UploadFile(photo, Path.Combine(fullPathToGameFolder, photo.FileName));
 
-                    await FileHelper.UploadFile(photo, Path.Combine(fullPathToGameFolder, photo.FileName));
+                        // Resize image to 400x225
+                        path = path + "400_225.jpg";
+                        game.Images.Add(new Image(){
+                            Url = path,
+                            Title = game.Name,
+                            Type = ImageType.medium
+                        });
 
-                    // Resize image to 400x225
-                    path = path + "400_225.jpg";
-                    game.Images.Add(new Image()
-                    {
-                        Url = path,
-                        Title = nameWithoutSpaces,
-                        Type = ImageType.medium
-                    });
-
-                    FileHelper.ResizeImage(photo, Path.Combine(fullPathToGameFolder, photo.FileName+"400_225.jpg"), 400, 225);
+                        FileHelper.ResizeImage(photo, Path.Combine(fullPathToGameFolder, photo.FileName + "400_225.jpg"), 400, 225);
+                    }
                 }
 
                 var response = await _gameService.CreateGame(game);
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                if (response.StatusCode == HttpStatusCode.OK)
                     return RedirectToAction("GetGames");
                 return RedirectToAction("Error");
             }

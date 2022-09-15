@@ -28,7 +28,6 @@ namespace GameZone.DAL.Repositories
         public IQueryable<Game> Get()
         {
             return _context.Games.AsNoTracking();
-            
         }
 
         public async Task<Game> Update(Game item)

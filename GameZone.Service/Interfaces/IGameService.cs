@@ -12,15 +12,17 @@ namespace GameZone.Service.Interfaces
                                                     ImageType imageType = ImageType.fullSize,
                                                     Expression<Func<Game, object>> sorter = null);
 
-        BaseResponse<IEnumerable<Game>> GetGame(int id, 
+        Task<BaseResponse<Game>> GetGame(int id, 
             bool includeDeveloper = true, 
             ImageType imageType = ImageType.fullSize);
-        BaseResponse<IEnumerable<Game>> GetGame(string name, 
+        Task<BaseResponse<IEnumerable<Game>>> GetGame(string name, 
             bool includeDeveloper = true, 
             ImageType imageType = ImageType.fullSize);
 
         Task<BaseResponse<Game>> CreateGame(Game game);
         Task<BaseResponse<bool>> DeleteGame(int id);
-      
+        Task<BaseResponse<Game>> UpdateGame(Game game);
+
+        Task<BaseResponse<int>> GetLastId();
     }
 }
