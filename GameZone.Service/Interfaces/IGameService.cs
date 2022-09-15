@@ -21,7 +21,6 @@ namespace GameZone.Service.Interfaces
 
         Task<BaseResponse<Game>> CreateGame(Game game);
         Task<BaseResponse<bool>> DeleteGame(int id);
-        Task<>
-
+      
     }
 }
