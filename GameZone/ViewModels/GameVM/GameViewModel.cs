@@ -9,9 +9,10 @@ namespace GameZone.ViewModels.GameVM
         [Required]
         public string Description { get; set; }
         [Required]
+        [Range(0.01, 200)]
         public decimal Price { get; set; }
         [Required]
-        public DateTime ReleaseDate { get; set; }
+        public DateTime ReleaseDate { get; set; }   
         [Required]
         public int DeveloperId { get; set; }
 

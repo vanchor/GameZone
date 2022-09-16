@@ -210,25 +210,5 @@ namespace GameZone.Service.Implementations
                 };
             }
         }
-
-        public async Task<BaseResponse<int>> GetLastId()
-        {
-            try
-            {
-                int lastID = await _gameRepository.Get().OrderByDescending(x => x.Id).Select(x => x.Id).FirstAsync();
-
-                return new BaseResponse<int>{
-                    Data = lastID,
-                    StatusCode = HttpStatusCode.OK
-                };
-            }
-            catch (Exception ex)
-            {
-                return new BaseResponse<int>(){
-                    Description = $"[GetLastId] : {ex.Message}",
-                    StatusCode = HttpStatusCode.InternalServerError
-                };
-            }
-        }
     }
 }

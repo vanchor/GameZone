@@ -1,0 +1,11 @@
+﻿@model GameZone.ViewModels.GameVM.GameViewModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@await Component.InvokeAsync("ListOfDevelopers")
+
+@section scripts
+{
+    <script src="~/js/SearchInList.js"></script>
+}

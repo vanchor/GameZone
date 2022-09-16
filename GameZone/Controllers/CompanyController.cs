@@ -15,6 +15,16 @@ namespace GameZone.Controllers
             _companyService = companyService;
         }
 
+        public IActionResult ReloadDevelopersList()
+        {
+            return ViewComponent("ListOfDevelopers");
+        }
+
+        public IActionResult GetCompanies()
+        {
+            return View();
+        }
+
         [HttpGet]
         public IActionResult CreateCompany()
         {

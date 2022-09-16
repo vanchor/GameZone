@@ -15,7 +15,8 @@
     @foreach (var company in Model)
     {
         var itemId = "ListItem" + @company.Id;
-        <a id="@itemId" class="list-group-item list-group-item-action  p-2" onclick="clickItem(@company.Id, '@company.Name')">
+        <a id="@itemId" class="list-group-item list-group-item-action  p-2 developerItem">
+            <p hidden>@company.Id</p>
             <img src="~/images/Media/Companies/@company.LogoUrl" alt="Logo" width="40px" class="rounded" />
             <span class="align-middle">@company.Name</span>
         </a>
