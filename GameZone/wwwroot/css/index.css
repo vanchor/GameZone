@@ -1,5 +1,4 @@
-﻿
-.searchForm {
+﻿.searchForm {
     max-height: 38px;
 }
 
@@ -49,13 +48,8 @@
     right: -100%;
     top: -100%;
     bottom: -100%;
-
-/*    position:relative;
-    object-fit: cover;
-    object-position: center center*/
     opacity: 0.4;
 }
-
 
 /* ==== Game Card carousel ====*/
 .carousel .carousel-control {
@@ -106,25 +100,19 @@
     margin-bottom: 20px;
 }
 
+
+
 .adminActionsGame {
+    width: 70px;
+    background-color: rgb(0, 0, 0, 0.5);
+    border-radius: 10px;
+
     position: absolute;
     z-index: 5;
-    font-size: 23px;
     right: 17px;
     top: 10px;
 }
 
-.adminActionsGame a {
+.adminActionsGame .adminActionBtn{
     color: white;
-    opacity: .5;
-    transition: 0.3s linear;
-}
-
-.adminActionsGame a:hover {
-    opacity: 1;
-}
-
-.deleteBtn:hover {
-    opacity: 1;
-    color:red;
 }

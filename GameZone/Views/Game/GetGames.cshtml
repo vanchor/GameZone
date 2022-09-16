@@ -78,9 +78,9 @@
 
         <div class="col-lg-4 col-md-6 col-sm-6 mb-5">
             <div class="card h-100">
-                <div class="adminActionsGame">
-                    <a href="#"><i class="bi bi-pencil"></i></a>
-                    <a asp-controller="Game" asp-action="Delete" asp-route-id="@game.Id" class="deleteBtn"><i class="bi bi-trash3"></i></a>    
+                <div class="adminActionsGame text-center">
+                    <a href="#"><i class="bi bi-pencil adminActionBtn"></i></a>
+                    <a asp-controller="Game" asp-action="Delete" asp-route-id="@game.Id" class="deleteBtn adminActionBtn"><i class="bi bi-trash3"></i></a>    
                 </div>
                 <div id="@GameCarouselName" class="carousel game_card_carousel slide carousel-fade" data-bs-touch="false" data-bs-interval="false">
                     <div class="carousel-indicators">

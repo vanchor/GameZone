@@ -3,9 +3,26 @@
     ViewData["Title"] = "Home Page";
 }
 
-@await Component.InvokeAsync("ListOfDevelopers")
+<div class="container">  
+    <div class="col-12 col-md-9 col-lg-8 col-xl-7 mx-auto mt-5" id="listComponent">
+
+        @await Component.InvokeAsync("ListOfDevelopers")
+
+    </div>
+</div>
+
 
 @section scripts
 {
     <script src="~/js/SearchInList.js"></script>
+    <script>
+        function ReloadDevelopersList() {
+            $.ajax({
+                url: '@Url.Action("ReloadDevelopersList", "Company")', type: "GET",
+                success: function(data) {
+                    $("#listComponent").html(data);
+                }
+            })
+        }
+    </script>
 }

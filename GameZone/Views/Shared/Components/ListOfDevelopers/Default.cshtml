@@ -11,15 +11,22 @@
 </div>
 <br />
 
-<div class="list-group" id="companyList">
+<ul class="list-group" id="companyList">
     @foreach (var company in Model)
     {
         var itemId = "ListItem" + @company.Id;
-        <a id="@itemId" class="list-group-item list-group-item-action  p-2 developerItem">
+        <li id="@itemId" class="list-group-item list-group-item-action  p-2 developerItem">
             <p hidden>@company.Id</p>
             <img src="~/images/Media/Companies/@company.LogoUrl" alt="Logo" width="40px" class="rounded" />
             <span class="align-middle">@company.Name</span>
-        </a>
+
+            <div class="dropdown position-absolute top-50 end-0 translate-middle-y col-1">
+                <a role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-three-dots-vertical"></i></a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdownMenuButton">
+                    <li><a class="dropdown-item" href="#">Edit</a></li>
+                    <li><a class="dropdown-item deleteBtn" asp-controller="Company" asp-action="DeleteCompany" asp-route-id="@company.Id">Delete</a></li>
+                </ul>
+            </div>
+        </li>
     }
-</div>
-            
+</ul>

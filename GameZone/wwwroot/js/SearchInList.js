@@ -1,4 +1,4 @@
-function findByNameInList(inputFieldId, listBlockId, tagNameOfOneItemInList = "a", tagNameOfNameElement = "span") {
+function findByNameInList(inputFieldId, listBlockId, tagNameOfOneItemInList = "li", tagNameOfNameElement = "span") {
     var input, filter, ul, li, a, i, txtValue;
     input = document.getElementById(inputFieldId);
     filter = input.value.toUpperCase();

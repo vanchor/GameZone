@@ -130,13 +130,20 @@
 
             $("#previewImages").css("width", selectedFile.length * 300 + selectedFile.length * 9)
         }
-
        
-        $(".developerItem").click(function clickItem() {
-                $("#DeveloperName").val($(this).children("span").text());
-                $("#DeveloperId").val($(this).children("p").text());
-                $("#DeveloperLogo").attr("src", $(this).children("img").attr('src'));
-            }
-        );
+        $(document).on('click', '.developerItem', function () {
+            $("#DeveloperName").val($(this).children("span").text());
+            $("#DeveloperId").val($(this).children("p").text());
+            $("#DeveloperLogo").attr("src", $(this).children("img").attr('src'));
+        });
+
+         function ReloadDevelopersList() {
+            $.ajax({
+                url: '@Url.Action("ReloadDevelopersList", "Company")', type: "GET",
+                success: function(data) {
+                    $("#popUpsList").html(data);
+                }
+            })
+        }
     </script>
 }

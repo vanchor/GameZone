@@ -3,6 +3,7 @@ using GameZone.Domain.Core.Entities;
 using GameZone.Service.Interfaces;
 using GameZone.ViewModels.CompanyVM;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace GameZone.Controllers
 {
@@ -47,14 +48,28 @@ namespace GameZone.Controllers
                 };
 
                 var response = await _companyService.CreateCompany(company);
-                if (response.StatusCode == System.Net.HttpStatusCode.OK)
-                    return View();
+                if (response.StatusCode == HttpStatusCode.OK)
+                    return RedirectToAction("GetCompanies");
                 return RedirectToAction("Error");
             }
             catch (Exception ex)
             {
                 return RedirectToAction("Error");
             }
+        }
+
+        public async Task<IActionResult> DeleteCompany(int id)
+        {
+            var response = await _companyService.DeleteCompany(id);
+
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                var path = FileHelper.FullPathToMedaiFolder($"Companies\\{response.Data.LogoUrl}");
+                if (System.IO.File.Exists(path))
+                    System.IO.File.Delete(path);
+                return RedirectToAction("GetCompanies");
+            }
+            return RedirectToAction("Error");
         }
     }
 }

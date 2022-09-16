@@ -15,9 +15,9 @@ namespace GameZone.Components
             _companyService = companyService;
         }
 
-        public IViewComponentResult Invoke()
+        public async Task<IViewComponentResult> InvokeAsync()
         {
-            var response = _companyService.GetCompanies();
+            var response = await _companyService.GetCompanies();
             return View(response.Data);
         }
     }

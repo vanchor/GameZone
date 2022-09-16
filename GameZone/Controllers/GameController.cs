@@ -83,7 +83,7 @@ namespace GameZone.Controllers
                             // Resize image to 400x225
                             game.Images.Add(new Image()
                             {
-                                Url = $"{game.Id}\\{photo.FileName}\\400_225.jpg",
+                                Url = $"{game.Id}\\{photo.FileName}400_225.jpg",
                                 Title = game.Name,
                                 Type = ImageType.medium
                             });

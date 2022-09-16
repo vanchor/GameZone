@@ -39,25 +39,47 @@ body {
     cursor: pointer;
 }
 
-.dropdown:hover .dropdown-menu {
+.dropHover:hover .dropdown-menu {
     display: block;
     margin-top: 0;
 }
 
-/*.pop_ups {
-    z-index: 20;
+
+
+/*.adminActionsGame {
     position: absolute;
-    left: 50%;
-
-    transform: translate(-50%, -50%);
-
-    box-shadow: 0 0 1000px black;
-
-    padding: 40px;
-    font-family: Arial;
-    display: none;
+    z-index: 5;
+    font-size: 23px;
+    right: 17px;
+    top: 10px;
 }
 
-.pop_ups .rounded-pill {
-    width: 100%;
-}*/
+.adminActionsGame a {
+    color: white;
+    opacity: .5;
+    transition: 0.3s linear;
+}
+
+    .adminActionsGame a:hover {
+        opacity: 1;
+    }
+*/
+
+.adminActionBtn {
+    color: black;
+    opacity: .5;
+    transition: 0.3s linear;
+
+    font-size: 23px;
+}
+
+.adminActionBtn:hover {
+    color: black;
+    opacity: 1;
+}
+
+
+.deleteBtn:hover {
+    opacity: 1;
+    color: red !important;  
+}
