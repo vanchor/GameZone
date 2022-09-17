@@ -23,6 +23,11 @@ body {
 }
 
 /* nav-bar menu */
+#mainMenu {
+    position: relative;
+    z-index: 1;
+}
+
 .menu-transparent {
     background-color: #000000d9;
 }
@@ -60,11 +65,12 @@ body {
     transition: 0.3s linear;
 }
 
-    .adminActionsGame a:hover {
-        opacity: 1;
-    }
+.adminActionsGame a:hover {
+    opacity: 1;
+}
 */
 
+/* Admin actions (Edit/Delte) */
 .adminActionBtn {
     color: black;
     opacity: .5;
@@ -82,4 +88,25 @@ body {
 .deleteBtn:hover {
     opacity: 1;
     color: red !important;  
+}
+
+
+@media screen and (max-width: 991px) {
+    #mainMenu {
+        max-width: 300px;
+    }
+
+    #mainMenu .nav-item {
+        text-align: center;
+        background-color: #212529;
+    }
+
+    #mainMenu .dropdown-menu {
+        background-color: #353b42;
+        text-align: center;
+    }
+
+    #mainMenu .dropdown-item {
+        color: rgba(255, 255, 255, 0.55);
+    }
 }

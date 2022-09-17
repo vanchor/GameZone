@@ -33,7 +33,8 @@
                 classes += " active";
 
             <div class="@classes">
-                <img src="~/images/Media/Games/@game.Images.FirstOrDefault().Url" class="slide_img d-block w-100" alt="@game.Images.FirstOrDefault().Title">
+
+                <div class="slide_img d-block w-100" style="background-image: url(@Url.Content("~/images/Media/Games/" + @game.Images.FirstOrDefault().Url))"></div>
                 <div class="carousel-caption">
                     <p class="fs-1">@game.Name</p>
                     <p class="fs-5 d-none d-lg-block">@game.Description</p>

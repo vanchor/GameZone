@@ -41,13 +41,12 @@
 
 .slide_img {
     position: absolute;
-    margin: auto; 
-    min-height: 100%;
-    min-width: 100%;
-    left: -100%;
-    right: -100%;
-    top: -100%;
-    bottom: -100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center center;
     opacity: 0.4;
 }
 
@@ -116,3 +115,18 @@
 .adminActionsGame .adminActionBtn{
     color: white;
 }
+
+
+@media screen and (max-width: 576px) {
+    #main_carousel .carousel-item {
+        max-height: 100% !important;
+        height: 100vh;
+    }
+}
+
+
+@media screen and (max-width: 767px) and (min-width: 576px) {
+    .card-footer p {
+        font-size: 16px !important;
+    }
+}	
