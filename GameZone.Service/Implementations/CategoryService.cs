@@ -2,6 +2,7 @@
 using GameZone.Domain.Core.Entities;
 using GameZone.Domain.Core.Response;
 using GameZone.Service.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -33,11 +34,11 @@ namespace GameZone.Service.Implementations
             throw new NotImplementedException();
         }
 
-        public BaseResponse<IEnumerable<Category>> GetCategories()
+        public async Task<BaseResponse<IEnumerable<Category>>> GetCategories()
         {
             try
             {
-                var categories = _categoryRepository.Get().ToList();
+                var categories = await _categoryRepository.Get().ToListAsync();
 
                 if(categories.Count == 0)
                 {

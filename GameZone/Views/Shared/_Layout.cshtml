@@ -11,7 +11,7 @@
     @RenderSection("Styles", false)
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-    
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 </head>
 <body>
     <header>
@@ -34,7 +34,7 @@
                                     <a class="nav-link" asp-area="" asp-controller="Company" asp-action="GetCompanies">Developers</a>
                                 </li>
                                 
-                                @await Component.InvokeAsync("CategoryMenu")
+                                @await Component.InvokeAsync("CategoryComponents")
 
                                 <li class="nav-item">
                                     <a class="nav-link" href="ContactUS.html" tabindex="-1" aria-disabled="true">Contact us</a>
@@ -63,6 +63,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

@@ -5,7 +5,7 @@ namespace GameZone.Service.Interfaces
 {
     public interface ICategoryService
     {
-        BaseResponse<IEnumerable<Category>> GetCategories();
+        Task<BaseResponse<IEnumerable<Category>>> GetCategories();
         Task<BaseResponse<Category>> GetCategory(int categoryId);
         Task<BaseResponse<Category>> GetCategory(string name);
         Task<BaseResponse<Category>> CreateCategory(Category category);

@@ -32,7 +32,6 @@ namespace GameZone.Controllers
                 return View(viewModel);
             }
 
-
             return RedirectToAction("Error");
         }
 
@@ -62,6 +61,7 @@ namespace GameZone.Controllers
             if (ModelState.IsValid)
             {
                 var game = gameViewModel.ToGame();
+                game.Categories.Add(new Category() { Id = gameViewModel.CategoriesId[0] });
                 var response = await _gameService.CreateGame(game);
                 try
                 {
@@ -96,12 +96,13 @@ namespace GameZone.Controllers
                     if (response.StatusCode == HttpStatusCode.OK)
                         return RedirectToAction("GetGames");
                     return RedirectToAction("Error");
-                }
+                }       
                 catch (Exception ex)
                 {
                     return RedirectToAction("Error");
                 }
             }
+
             return View(gameViewModel); 
         }
     }

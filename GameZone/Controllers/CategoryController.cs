@@ -13,10 +13,17 @@ namespace GameZone.Controllers
             _categoryService = categoryService;
         }
 
-
-        public IActionResult GetCategories()
+        public async Task<IActionResult> GetCategoriesOptions()
         {
-            var response = _categoryService.GetCategories();
+            var response = await _categoryService.GetCategories();
+            if (response.StatusCode == HttpStatusCode.OK)
+                return PartialView("_CategoriesSelection", response.Data);
+            return RedirectToAction("Error");
+        }
+
+        public async Task<IActionResult> GetCategories()
+        {
+            var response = await _categoryService.GetCategories();
             if(response.StatusCode == HttpStatusCode.OK)
                 return View(response.Data);
             return RedirectToAction("Error");

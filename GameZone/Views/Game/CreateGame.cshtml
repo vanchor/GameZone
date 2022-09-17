@@ -51,6 +51,16 @@
                         <span class="text-danger" asp-validation-for="@Model.DeveloperId"></span>
                     </div>
 
+                    <div class="form-group mb-2">
+                        <label asp-for="@Model.ReleaseDate"></label>
+                        <select class="form-select js-example-basic-multiple" name="states[]" multiple="multiple">
+                            @await Component.InvokeAsync("CategoryComponents", new { inOptions = true });
+                        </select>
+
+                        <span class="text-danger" asp-validation-for="@Model.ReleaseDate"></span>
+                    </div>
+
+                    
 
                     <div class="form-group mb-2">
                         <label for="imgInp">Game Photos:</label>
@@ -102,7 +112,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <a class="btn btn-primary mx-auto" asp-controller="Company" asp-action="CreateCompany" target="_blank">Add new developer</a>
+                        <a class="btn btn-primary" asp-controller="Company" asp-action="CreateCompany" target="_blank">Add new developer</a>
                         <button type="button" class="btn btn-success" data-bs-dismiss="modal">Save changes</button>
                     </div>
                 </div>
@@ -114,6 +124,10 @@
     {
     <script src="~/js/SearchInList.js"></script>
     <script>
+        $(document).ready(function() {
+            $('.js-example-basic-multiple').select2();
+        });
+
         function addPreviewImages() {
             var selectedFile = $('#imgInp').get(0).files;
             var imagesHtml = "";
