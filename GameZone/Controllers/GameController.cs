@@ -61,7 +61,8 @@ namespace GameZone.Controllers
             if (ModelState.IsValid)
             {
                 var game = gameViewModel.ToGame();
-                game.Categories.Add(new Category() { Id = gameViewModel.CategoriesId[0] });
+                var cat = new Category() { Id = gameViewModel.CategoriesId[0] };
+                game.Categories.Add(cat);
                 var response = await _gameService.CreateGame(game);
                 try
                 {

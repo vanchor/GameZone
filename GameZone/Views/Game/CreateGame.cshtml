@@ -52,19 +52,19 @@
                     </div>
 
                     <div class="form-group mb-2">
-                        <label asp-for="@Model.ReleaseDate"></label>
-                        <select class="form-select js-example-basic-multiple" name="states[]" multiple="multiple">
+                        <label asp-for="@Model.CategoriesId"></label>
+                        <select asp-for="@Model.CategoriesId" class="form-select js-example-basic-multiple" name="CategoriesId[]" multiple="multiple">
                             @await Component.InvokeAsync("CategoryComponents", new { inOptions = true });
                         </select>
 
-                        <span class="text-danger" asp-validation-for="@Model.ReleaseDate"></span>
+                        <span class="text-danger" asp-validation-for="@Model.CategoriesId"></span>
                     </div>
 
                     
 
                     <div class="form-group mb-2">
-                        <label for="imgInp">Game Photos:</label>
-                        <input OnChange="addPreviewImages()" class="form-control" type="file" name="photos" id="imgInp" accept="image/*" multiple>
+                        <label asp-for="@Model.photos">Game Photos:</label>
+                        <input asp-for="@Model.photos" OnChange="addPreviewImages()" class="form-control" type="file" id="imgInp" accept="image/*" multiple>
                     </div>
                 </div>
 

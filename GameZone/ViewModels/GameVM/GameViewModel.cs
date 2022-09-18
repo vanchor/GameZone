@@ -16,10 +16,9 @@ namespace GameZone.ViewModels.GameVM
         [Required]
         public int DeveloperId { get; set; }
 
-        public IFormFile[] photos { get; set; }
 
+        public List<IFormFile> photos { get; set; }
 
-        [Required]
         public List<int> CategoriesId { get; set; }
     }
 }
