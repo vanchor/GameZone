@@ -129,6 +129,20 @@
                 <div class="card-body">
                     <h3 class="card-title">@game.Name</h3>
                     <h6 class="card-subtitle mb-2 text-muted">@game.Developer.Name (@game.ReleaseDate.ToString("dd.MM.yyyy"))</h6>
+                    
+                        @if(game.Categories != null)
+                        {
+                            <section class="splide" role="group" aria-label="Game categories">
+                                <div class="splide__track">
+                                    <ul class="splide__list">
+                                        @foreach(var category in game.Categories){  
+                                            <li class="splide__slide">#@category.Name</li>
+                                        }
+                                    </ul>
+                                </div>
+                            </section>
+                        }
+                        
                 </div>
                 <div class="card-footer">
                     @{ /*TODO: Add BUY button handler */ }
@@ -145,3 +159,20 @@
     }
     </div>
 </div>
+
+@section scripts
+{
+    <script>
+        var elms = document.getElementsByClassName( 'splide' );
+
+        for (var i = 0; i < elms.length; i++) {
+            new Splide(elms[i], {
+                perPage: 3,
+                perMove: 1,
+                autoWidth: true,
+                pagination: false,
+                padding: 10,
+            }).mount();
+        }
+    </script>
+}

@@ -117,6 +117,29 @@
 }
 
 
+/* Categories carousek in card */
+.card .splide {
+    padding: 0 30px !important;
+}
+
+.card .splide__arrow--prev {
+    left: 0;
+}
+
+.card .splide__arrow--next {
+    right: 0;
+}
+
+.card .splide__arrow {
+    border-radius: 5px !important;
+}
+.card .splide__slide {
+    margin: 3px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgba( 103, 193, 245, 0.2 );
+}
+
 @media screen and (max-width: 576px) {
     #main_carousel .carousel-item {
         max-height: 100% !important;

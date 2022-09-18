@@ -61,9 +61,7 @@ namespace GameZone.Controllers
             if (ModelState.IsValid)
             {
                 var game = gameViewModel.ToGame();
-                var cat = new Category() { Id = gameViewModel.CategoriesId[0] };
-                game.Categories.Add(cat);
-                var response = await _gameService.CreateGame(game);
+                var response = await _gameService.CreateGame(game, gameViewModel.CategoriesId);
                 try
                 {
                     if (photos != null && response.StatusCode == HttpStatusCode.OK)

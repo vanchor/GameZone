@@ -107,7 +107,7 @@ namespace GameZone.Service.Implementations
                 if (includeDeveloper)   
                     queryable = queryable.Include(g => g.Developer);
  
-                var games = await queryable.Include(g => g.Images.Where(i => i.Type == imageType)).ToListAsync();
+                var games = await queryable.Include(g => g.Categories).Include(g => g.Images.Where(i => i.Type == imageType)).ToListAsync();
 
                 if (games.Count() == 0)
                 {
@@ -133,10 +133,13 @@ namespace GameZone.Service.Implementations
             }
         }
 
-        public async Task<BaseResponse<Game>> CreateGame(Game game)
+        public async Task<BaseResponse<Game>> CreateGame(Game game, List<int> CategoriesId)
         {
             try
             {
+                game.Categories = CategoriesId.Distinct()
+                                    .Select(t => new Category() { Id = t })
+                                    .ToList();
                 await _gameRepository.Create(game);
 
                 return new BaseResponse<Game>() { 

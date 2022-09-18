@@ -21,6 +21,9 @@ namespace GameZone.DAL.Repositories
 
         public async Task Create(Game item)
         {
+            foreach (var category in item.Categories)
+                _context.Categories.Attach(category);
+
             _context.Games.Add(item);
             await _context.SaveChangesAsync();
         }

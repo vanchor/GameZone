@@ -19,7 +19,7 @@ namespace GameZone.Service.Interfaces
             bool includeDeveloper = true, 
             ImageType imageType = ImageType.fullSize);
 
-        Task<BaseResponse<Game>> CreateGame(Game game);
+        Task<BaseResponse<Game>> CreateGame(Game game, List<int> CategoriesId);
         Task<BaseResponse<bool>> DeleteGame(int id);
         Task<BaseResponse<Game>> UpdateGame(Game game);
     }

@@ -34,7 +34,7 @@ namespace GameZone.DAL.Migrations
 
                     b.HasIndex("GamesId");
 
-                    b.ToTable("CategoryGame");
+                    b.ToTable("CategoryGame", (string)null);
                 });
 
             modelBuilder.Entity("GameZone.Domain.Core.Entities.Category", b =>
@@ -51,7 +51,7 @@ namespace GameZone.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("GameZone.Domain.Core.Entities.Company", b =>
@@ -76,7 +76,7 @@ namespace GameZone.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Companies");
+                    b.ToTable("Companies", (string)null);
                 });
 
             modelBuilder.Entity("GameZone.Domain.Core.Entities.Game", b =>
@@ -108,7 +108,7 @@ namespace GameZone.DAL.Migrations
 
                     b.HasIndex("DeveloperId");
 
-                    b.ToTable("Games");
+                    b.ToTable("Games", (string)null);
                 });
 
             modelBuilder.Entity("GameZone.Domain.Core.Entities.Image", b =>
@@ -137,7 +137,7 @@ namespace GameZone.DAL.Migrations
 
                     b.HasIndex("GameId");
 
-                    b.ToTable("Images");
+                    b.ToTable("Images", (string)null);
                 });
 
             modelBuilder.Entity("CategoryGame", b =>

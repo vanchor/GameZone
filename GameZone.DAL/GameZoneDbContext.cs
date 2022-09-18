@@ -7,7 +7,6 @@ namespace GameZone.DAL
     {
         public GameZoneDbContext(DbContextOptions<GameZoneDbContext> options) : base(options)
         {
-
         }
 
         public DbSet<Game> Games { get; set; }
