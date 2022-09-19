@@ -132,7 +132,13 @@
                     
                         @if(game.Categories != null)
                         {
-                            <section class="splide" role="group" aria-label="Game categories">
+                            <ul class="cs-hidden autoWidth">
+                                @foreach(var category in game.Categories){  
+                                    <li class="category_slide">#@category.Name</li>
+                                }
+                            </ul>
+
+                            @*<section class="splide" role="group" aria-label="Game categories">
                                 <div class="splide__track">
                                     <ul class="splide__list">
                                         @foreach(var category in game.Categories){  
@@ -140,7 +146,7 @@
                                         }
                                     </ul>
                                 </div>
-                            </section>
+                            </section>*@
                         }
                         
                 </div>
@@ -163,16 +169,17 @@
 @section scripts
 {
     <script>
-        var elms = document.getElementsByClassName( 'splide' );
-
-        for (var i = 0; i < elms.length; i++) {
-            new Splide(elms[i], {
-                perPage: 3,
-                perMove: 1,
+        $(window).on('load', function() {
+            $(".autoWidth").lightSlider({
+                slideMargin: 20,
                 autoWidth: true,
-                pagination: false,
-                padding: 10,
-            }).mount();
-        }
+                loop: false,
+                pager:false,
+                controls: false,
+                onSliderLoad: function() {
+                    $('.autoWidth').removeClass('cs-hidden');
+                }
+            });
+        });
     </script>
 }

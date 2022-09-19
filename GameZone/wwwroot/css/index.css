@@ -117,27 +117,19 @@
 }
 
 
-/* Categories carousek in card */
-.card .splide {
-    padding: 0 30px !important;
-}
-
-.card .splide__arrow--prev {
-    left: 0;
-}
-
-.card .splide__arrow--next {
-    right: 0;
-}
-
-.card .splide__arrow {
-    border-radius: 5px !important;
-}
-.card .splide__slide {
-    margin: 3px;
+/* Categories carousel in card */
+.category_slide {
     padding: 5px;
     border-radius: 5px;
     background-color: rgba( 103, 193, 245, 0.2 );
+    margin-right: 7px !important;
+}
+
+.cs-hidden {
+    height: 1px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    overflow: hidden;
 }
 
 @media screen and (max-width: 576px) {

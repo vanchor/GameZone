@@ -19,6 +19,18 @@ namespace GameZone.Controllers
             _gameService = gameService;
         }
 
+        [HttpGet]
+        [Route("Game/{Id}")]
+        public async Task<IActionResult> GetGame(int id)
+        {
+            var response = await _gameService.GetGame(id);
+            if (response.StatusCode == HttpStatusCode.OK)
+                return View(response.Data);
+            if (response.StatusCode == HttpStatusCode.NotFound)
+                return RedirectToAction("GetGames");
+            return RedirectToAction("Error");
+        }
+
         public async Task<IActionResult> GetGames()
         {
             var viewModel = new GetGamesViewModel();

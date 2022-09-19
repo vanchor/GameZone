@@ -33,7 +33,7 @@ namespace GameZone.Common
             }
         }
 
-        public static void ResizeImage(IFormFile file, string imagePath, int newWidth, int newHeight)
+        public static void ResizeImage(IFormFile file, string imagePath, int newWidth, int newHeight = 0)
         {
             if (!file.ContentType.Contains("image"))
                 throw new ArgumentException("The file is not an image!");
@@ -41,6 +41,12 @@ namespace GameZone.Common
                 throw new ArgumentException("Width and height of the picture cannot be less than 0!");
 
             Image image = Image.FromStream(file.OpenReadStream(), true, true);
+            if (newHeight == 0)
+            {
+                var multiplier = (int)(newWidth / image.Width);
+                newHeight = multiplier * image.Height;
+            }
+
             Bitmap resized = new Bitmap(image, newWidth, newHeight);
             resized.Save(imagePath);
         }
