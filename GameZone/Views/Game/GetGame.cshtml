@@ -4,36 +4,48 @@
 }
 
 @section Styles {
-    <style>
-
-        .splide__slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-    </style>
+    <link rel="stylesheet" href="~/css/singleGame.css" type="text/css" />
 }
-<div class="content">
+
+<div class="container mt-5">
     <h1>@Model.Name</h1>
 
     <div class="row g-0">
-        <div class="col-8">
-            <ul id="imageGallery">
+        <div class="col-12 col-lg-8">
+            <ul id="imageGallery" class="cs-hidden">
                 @foreach (var image in Model.Images)
                 {
                     var imgPath = @Url.Content("~/images/Media/Games/" + @image.Url);
                     <li data-thumb="@(imgPath + "120x68.jpg")" data-src="@imgPath">
-                        <img src="@(imgPath + "935x526.jpg")" />
+                        <img src="@(imgPath + "935x526.jpg")" class="w-100"/>
                     </li>
                 }
-
-                    
-@*                    <li data-thumb="img/thumb/cS-2.jpg" data-src="img/largeImage1.jpg">
-                    <img src="img/cS-2.jpg" />
-                </li>*@
             </ul>
         </div>
-        <div class="col-4"></div>
+        <div class="col-12 col-lg-4 ps-4">
+            <div class="shortInfoGame">
+                <p>@Model.Description</p>
+                <table class="mb-3">
+                    <tr>
+                        <td><span class="text-uppercase">Release date:&emsp;</span></td>    
+                        <td>@Model.ReleaseDate.Date.ToString("dd.MM.yyyy")</td>    
+                    </tr>
+                    <tr>
+                        <td><span class="text-uppercase">Developer:</span></td>    
+                        <td><a href="#" class="fw-bold text-decoration-none">@Model.Developer.Name</a></td>    
+                    </tr>
+                </table>
+
+                @if(Model.Categories != null)
+                {
+                    <ul id="gameCategories" class="cs-hidden">
+                        @foreach(var category in @Model.Categories){  
+                            <li class="category_slide">#@category.Name</li>
+                        }
+                    </ul>
+                }
+            </div>
+        </div>
     </div>
 </div>
 
@@ -44,13 +56,26 @@
                 gallery: true,
                 item: 1,
                 loop: false,
-                thumbItem: 8,
+                thumbItem: 7,
                 slideMargin: 0, 
                 currentPagerPosition: 'middle',
                 onSliderLoad: function(el) {
                     el.lightGallery({
                         selector: '#imageGallery .lslide'
                     });
+
+                    $('#imageGallery').removeClass('cs-hidden');
+                }
+            });
+
+            $("#gameCategories").lightSlider({
+                slideMargin: 20,
+                autoWidth: true,
+                loop: false,
+                pager:false,
+                controls: false,
+                onSliderLoad: function() {
+                    $('#gameCategories').removeClass('cs-hidden');
                 }
             });
         });

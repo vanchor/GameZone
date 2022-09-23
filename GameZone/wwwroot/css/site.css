@@ -90,6 +90,13 @@ body {
     color: red !important;  
 }
 
+.cs-hidden {
+    height: 1px;
+    opacity: 0;
+    filter: alpha(opacity=0);
+    overflow: hidden;
+}
+
 
 @media screen and (max-width: 991px) {
     #mainMenu {

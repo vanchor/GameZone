@@ -1,0 +1,17 @@
+﻿.shortInfoGame {
+    background-color: rgba(0,0,0,.03);
+    height: 100%;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.shortInfoGame span {
+    color: #00000085;
+}
+
+.category_slide {
+    padding: 5px;
+    border-radius: 5px;
+    background-color: rgba( 103, 193, 245, 0.2 );
+    margin-right: 7px !important;
+}

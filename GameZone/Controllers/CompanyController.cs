@@ -37,14 +37,15 @@ namespace GameZone.Controllers
         {
             try
             {
-                var path = Path.Combine(FileHelper.FullPathToMedaiFolder("Companies"), companyVM.CompanyLogo.FileName);
+                var newFileName = Guid.NewGuid().ToString() + Path.GetExtension(companyVM.CompanyLogo.FileName);
+                var path = Path.Combine(FileHelper.FullPathToMedaiFolder("Companies"), newFileName);
                 await FileHelper.UploadFile(companyVM.CompanyLogo, path);
 
                 var company = new Company()
                 {
                     Name = companyVM.Name,
-                    Description = companyVM.Description,
-                    LogoUrl = companyVM.CompanyLogo.FileName
+                    Description = companyVM.Description,    
+                    LogoUrl = newFileName
                 };
 
                 var response = await _companyService.CreateCompany(company);

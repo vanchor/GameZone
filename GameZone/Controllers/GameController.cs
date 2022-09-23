@@ -20,7 +20,7 @@ namespace GameZone.Controllers
         }
 
         [HttpGet]
-        [Route("Game/{Id}")]
+        [Route("Game/{Id:int}")]
         public async Task<IActionResult> GetGame(int id)
         {
             var response = await _gameService.GetGame(id);
@@ -83,22 +83,27 @@ namespace GameZone.Controllers
 
                         foreach (IFormFile photo in photos)
                         {
+                            var newName = Guid.NewGuid().ToString() + Path.GetExtension(photo.FileName);
+
                             game.Images.Add(new Image()
                             {
-                                Url = $"{game.Id}/{photo.FileName}",
+                                Url = $"{game.Id}/{newName}",
                                 Title = game.Name,
                                 Type = ImageType.fullSize,
                             });
-                            await FileHelper.UploadFile(photo, Path.Combine(fullPathToGameFolder, photo.FileName));
+                            await FileHelper.UploadFile(photo, Path.Combine(fullPathToGameFolder, newName));
 
                             // Resize image to 400x225
                             game.Images.Add(new Image()
                             {
-                                Url = $"{game.Id}/{photo.FileName}400_225.jpg",
+                                Url = $"{game.Id}/{newName}400x225.jpg",
                                 Title = game.Name,
                                 Type = ImageType.medium
                             });
-                            FileHelper.ResizeImage(photo, Path.Combine(fullPathToGameFolder, photo.FileName + "400_225.jpg"), 400, 225);
+
+                            FileHelper.ResizeImage(photo, Path.Combine(fullPathToGameFolder, newName + "120x68.jpg"), 120);
+                            FileHelper.ResizeImage(photo, Path.Combine(fullPathToGameFolder, newName + "400x225.jpg"), 400, 225);
+                            FileHelper.ResizeImage(photo, Path.Combine(fullPathToGameFolder, newName + "935x526.jpg"), 935);
                         }
 
                         response = await _gameService.UpdateGame(game);

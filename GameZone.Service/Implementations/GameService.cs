@@ -31,7 +31,7 @@ namespace GameZone.Service.Implementations
                 if (includeDeveloper)
                     queryable = queryable.Include(g => g.Developer);
                 
-                var game = await queryable.Include(g => g.Images.Where(i => i.Type == imageType)).FirstOrDefaultAsync(x => x.Id == id);
+                var game = await queryable.Include(g => g.Categories).Include(g => g.Images.Where(i => i.Type == imageType)).FirstOrDefaultAsync(x => x.Id == id);
 
                 if(game == null)
                     return new BaseResponse<Game>() { 

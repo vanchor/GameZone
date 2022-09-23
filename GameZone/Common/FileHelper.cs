@@ -37,14 +37,14 @@ namespace GameZone.Common
         {
             if (!file.ContentType.Contains("image"))
                 throw new ArgumentException("The file is not an image!");
-            if (newWidth <= 0 || newHeight <= 0)
-                throw new ArgumentException("Width and height of the picture cannot be less than 0!");
+            if (newWidth <= 0)
+                throw new ArgumentException("Width cannot be less than 0!");
 
             Image image = Image.FromStream(file.OpenReadStream(), true, true);
             if (newHeight == 0)
             {
-                var multiplier = (int)(newWidth / image.Width);
-                newHeight = multiplier * image.Height;
+                var multiplier = (float) newWidth / image.Width;
+                newHeight = (int)(multiplier * image.Height);
             }
 
             Bitmap resized = new Bitmap(image, newWidth, newHeight);

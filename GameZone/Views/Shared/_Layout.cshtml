@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/GameZone.styles.css" asp-append-version="true" />
 
-    <link href="~/lib/lightslider-master/dist/css/lightslider.css"  type="text/css" rel="stylesheet"/>
+    <link href="~/lib/lightslider-master/dist/css/lightslider.css" type="text/css" rel="stylesheet"/>
+
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.2.19/css/lightgallery.min.css">
 
     @RenderSection("Styles", false)
 
@@ -67,6 +70,9 @@
     <script src="~/js/site.js" asp-append-version="true"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="~/lib/lightslider-master/dist/js/lightslider.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightgallery/1.2.19/js/lightgallery-all.min.js"></script>
+
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

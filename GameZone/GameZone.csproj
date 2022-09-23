@@ -23,6 +23,7 @@
 
   <ItemGroup>
     <Folder Include="Views\Shared\PartialViews\" />
+    <Folder Include="wwwroot\images\Media\Games\" />
   </ItemGroup>
 
 </Project>

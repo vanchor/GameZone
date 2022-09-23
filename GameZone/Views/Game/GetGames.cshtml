@@ -39,7 +39,7 @@
                     <p class="fs-1">@game.Name</p>
                     <p class="fs-5 d-none d-lg-block">@game.Description</p>
                     <div class="d-grid col-sm-5 mx-auto">
-                        <button type="button" class="btn btn-primary btn-lg rounded-pill" onclick="">Buy now</button> @{ /* TODO : Make hendler for OnClick */}
+                        <a asp-action="GetGame" asp-route-id="@game.Id" class="btn btn-primary btn-lg rounded-pill">Buy now</a>
                     </div>
                 </div>
             </div>
@@ -130,29 +130,18 @@
                     <h3 class="card-title">@game.Name</h3>
                     <h6 class="card-subtitle mb-2 text-muted">@game.Developer.Name (@game.ReleaseDate.ToString("dd.MM.yyyy"))</h6>
                     
-                        @if(game.Categories != null)
-                        {
-                            <ul class="cs-hidden autoWidth">
-                                @foreach(var category in game.Categories){  
-                                    <li class="category_slide">#@category.Name</li>
-                                }
-                            </ul>
-
-                            @*<section class="splide" role="group" aria-label="Game categories">
-                                <div class="splide__track">
-                                    <ul class="splide__list">
-                                        @foreach(var category in game.Categories){  
-                                            <li class="splide__slide">#@category.Name</li>
-                                        }
-                                    </ul>
-                                </div>
-                            </section>*@
-                        }
+                    @if(game.Categories != null)
+                    {
+                        <ul class="cs-hidden autoWidth">
+                            @foreach(var category in game.Categories){  
+                                <li class="category_slide">#@category.Name</li>
+                            }
+                        </ul>
+                    }
                         
                 </div>
                 <div class="card-footer">
-                    @{ /*TODO: Add BUY button handler */ }
-                    <button type="button" class="btn btn-outline-dark">Buy now</button>
+                    <a asp-action="GetGame" asp-route-id="@game.Id" class="btn btn-outline-dark">Buy now</a>
                          
                     @{ /*TODO: Add Favourity */ }
                     <span class="material-icons favorite" onclick="addToFavorite('Dying Light')">favorite_border</span>
