@@ -15,9 +15,7 @@ namespace GameZone.Components
         public async Task<IViewComponentResult> InvokeAsync(bool inOptions = false)
         {
             var response = await _categoryService.GetCategories();
-            if (!inOptions)
-                return View(response.Data);
-            return View("_CategoriesSelection", response.Data);
+            return View(response.Data);
         }
     }
 }

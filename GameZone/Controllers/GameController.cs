@@ -7,16 +7,19 @@ using GameZone.ViewModels.GameVM;
 using Microsoft.AspNetCore.Mvc;
 using GameZone.Common.Mappings;
 using System.Net;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace GameZone.Controllers
 {
     public class GameController : Controller
     {
         private readonly IGameService _gameService;
+        private readonly ICategoryService _categoryService;
 
-        public GameController(IGameService gameService)
+        public GameController(IGameService gameService, ICategoryService categoryService)
         {
             _gameService = gameService;
+            _categoryService = categoryService;
         }
 
         [HttpGet]
@@ -63,12 +66,26 @@ namespace GameZone.Controllers
         [HttpGet]
         public IActionResult CreateGame()
         {
+            WriteCategoriesToViewBag();
             return View();
+        }
+
+        [HttpGet]
+        [Route("[controller]/Edit/{Id:int}")]
+        public IActionResult EditGame(int id)
+        {
+            WriteCategoriesToViewBag();
+
+            var gameResponse = _gameService.GetGame(id).Result;
+            if (gameResponse.StatusCode != HttpStatusCode.OK)
+                return RedirectToAction("Error");
+            var gameWM = gameResponse.Data.ToViewModel();
+            return View("CreateGame", gameWM);
         }
 
         [HttpPost]
         [RequestSizeLimit(100_000_000)]
-        public async Task<IActionResult> CreateGame(GameViewModel gameViewModel, List<IFormFile> photos)
+        public async Task<IActionResult> Save(GameViewModel gameViewModel)
         {
             if (ModelState.IsValid)
             {
@@ -76,12 +93,12 @@ namespace GameZone.Controllers
                 var response = await _gameService.CreateGame(game, gameViewModel.CategoriesId);
                 try
                 {
-                    if (photos != null && response.StatusCode == HttpStatusCode.OK)
+                    if (gameViewModel.photos != null && response.StatusCode == HttpStatusCode.OK)
                     {
                         var fullPathToGameFolder = FileHelper.FullPathToMedaiFolder($"Games\\{game.Id}");
                         FileHelper.CreateDirectory(fullPathToGameFolder);
 
-                        foreach (IFormFile photo in photos)
+                        foreach (IFormFile photo in gameViewModel.photos)
                         {
                             var newName = Guid.NewGuid().ToString() + Path.GetExtension(photo.FileName);
 
@@ -119,7 +136,15 @@ namespace GameZone.Controllers
                 }
             }
 
+            WriteCategoriesToViewBag();
+
             return View(gameViewModel); 
+        }
+
+        private void WriteCategoriesToViewBag()
+        {
+            var categoriesResponse = _categoryService.GetCategories().Result;
+            ViewBag.categoriesOptions = new SelectList(categoriesResponse.Data, nameof(Category.Id), nameof(Category.Name));
         }
     }
 }
