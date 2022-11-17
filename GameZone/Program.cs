@@ -1,6 +1,6 @@
 using GameZone.DAL;
 using GameZone.DAL.Interfaces;
-using GameZone.DAL.Repositories;
+using GameZone.DAL.Repositories.Implementations;
 using GameZone.Domain.Core.Entities;
 using GameZone.Service.Implementations;
 using GameZone.Service.Interfaces;

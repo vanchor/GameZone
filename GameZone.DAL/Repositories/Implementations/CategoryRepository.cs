@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameZone.DAL.Repositories
+namespace GameZone.DAL.Repositories.Implementations
 {
     public class CategoryRepository : IBaseRepository<Category>
     {
@@ -31,7 +31,7 @@ namespace GameZone.DAL.Repositories
 
         public IQueryable<Category> Get()
         {
-           return _context.Categories;
+            return _context.Categories;
         }
 
         public async Task<Category> Update(Category item)

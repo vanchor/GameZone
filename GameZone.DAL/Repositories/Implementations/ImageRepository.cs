@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameZone.DAL.Repositories
+namespace GameZone.DAL.Repositories.Implementations
 {
     internal class ImageRepository : IBaseRepository<Image>
     {

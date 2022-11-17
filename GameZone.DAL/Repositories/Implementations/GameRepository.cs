@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameZone.DAL.Repositories
+namespace GameZone.DAL.Repositories.Implementations
 {
     public class GameRepository : IBaseRepository<Game>
     {
