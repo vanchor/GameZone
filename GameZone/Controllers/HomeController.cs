@@ -1,4 +1,4 @@
-﻿using GameZone.DAL.Interfaces;
+﻿using GameZone.DAL.Repositories.Interfaces;
 using GameZone.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;

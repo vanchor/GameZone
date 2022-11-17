@@ -1,4 +1,4 @@
-﻿using GameZone.DAL.Interfaces;
+﻿using GameZone.DAL.Repositories.Interfaces;
 using GameZone.Domain.Core.Entities;
 using GameZone.Domain.Core.Response;
 using GameZone.Service.Interfaces;
@@ -13,9 +13,9 @@ namespace GameZone.Service.Implementations
 {
     public class CompanyService : ICompanyService
     {
-        private readonly IBaseRepository<Company> _companyRepository;
+        private readonly ICompanyRepository _companyRepository;
 
-        public CompanyService(IBaseRepository<Company> companyRepository)
+        public CompanyService(ICompanyRepository companyRepository)
         {
             _companyRepository = companyRepository;
         }
@@ -24,7 +24,8 @@ namespace GameZone.Service.Implementations
         {
             try
             {
-                await _companyRepository.Create(company);
+                _companyRepository.Add(company);
+                await _companyRepository.SaveChangesAsync();
                 return new BaseResponse<Company>() {
                     Data = company,
                     StatusCode = System.Net.HttpStatusCode.OK
@@ -51,7 +52,8 @@ namespace GameZone.Service.Implementations
                         StatusCode = System.Net.HttpStatusCode.NotFound
                     };
 
-                await _companyRepository.Delete(company);
+                _companyRepository.Remove(company);
+                await _companyRepository.SaveChangesAsync();
 
                 return new BaseResponse<Company>() {
                     Data = company,
@@ -140,7 +142,8 @@ namespace GameZone.Service.Implementations
                         StatusCode = System.Net.HttpStatusCode.NotFound
                     };
 
-                await _companyRepository.Update(company);
+                _companyRepository.Update(company);
+                await _companyRepository.SaveChangesAsync();
 
                 return new BaseResponse<Company>() {
                     Data = company,

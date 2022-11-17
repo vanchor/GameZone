@@ -1,4 +1,4 @@
-﻿using GameZone.DAL.Interfaces;
+﻿using GameZone.DAL.Repositories.Interfaces;
 using GameZone.Domain.Core.Entities;
 using GameZone.Domain.Core.Response;
 using GameZone.Service.Interfaces;
@@ -13,8 +13,8 @@ namespace GameZone.Service.Implementations
 {
     public class CategoryService : ICategoryService
     {
-        private readonly IBaseRepository<Category> _categoryRepository;
-        public CategoryService(IBaseRepository<Category> categoryRepository)
+        private readonly ICategoryRepository _categoryRepository;
+        public CategoryService(ICategoryRepository categoryRepository)
         {
             _categoryRepository = categoryRepository;
         }

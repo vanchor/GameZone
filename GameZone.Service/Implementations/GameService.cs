@@ -1,4 +1,4 @@
-﻿using GameZone.DAL.Interfaces;
+﻿using GameZone.DAL.Repositories.Interfaces;
 using GameZone.Domain.Core.Entities;
 using GameZone.Domain.Core.Enum;
 using GameZone.Domain.Core.Response;
@@ -16,8 +16,8 @@ namespace GameZone.Service.Implementations
 {
     public class GameService : IGameService
     {
-        private readonly IBaseRepository<Game> _gameRepository;
-        public GameService(IBaseRepository<Game> gameRepository)
+        private readonly IGameRepository _gameRepository;
+        public GameService(IGameRepository gameRepository)
         {
             _gameRepository = gameRepository;
         }
@@ -140,7 +140,8 @@ namespace GameZone.Service.Implementations
                 game.Categories = CategoriesId.Distinct()
                                     .Select(t => new Category() { Id = t })
                                     .ToList();
-                await _gameRepository.Create(game);
+                _gameRepository.Add(game);
+                await _gameRepository.SaveChangesAsync();
 
                 return new BaseResponse<Game>() { 
                     Data = game,
@@ -170,7 +171,8 @@ namespace GameZone.Service.Implementations
                     };
                 }
 
-                await _gameRepository.Delete(game);
+                _gameRepository.Remove(game);
+                await _gameRepository.SaveChangesAsync();
 
                 return new BaseResponse<bool>()
                 {
@@ -199,7 +201,8 @@ namespace GameZone.Service.Implementations
                         StatusCode = HttpStatusCode.OK
                     };
                 
-                await _gameRepository.Update(game);
+                _gameRepository.Update(game);
+                await _gameRepository.SaveChangesAsync();
                 return new BaseResponse<Game>() { 
                     StatusCode = HttpStatusCode.OK,
                     Data = game

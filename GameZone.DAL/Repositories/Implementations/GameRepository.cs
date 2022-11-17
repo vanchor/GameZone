@@ -1,4 +1,4 @@
-﻿using GameZone.DAL.Interfaces;
+﻿using GameZone.DAL.Repositories.Interfaces;
 using GameZone.Domain.Core.Entities;
 using GameZone.Domain.Core.Enum;
 using Microsoft.EntityFrameworkCore;
@@ -10,41 +10,23 @@ using System.Threading.Tasks;
 
 namespace GameZone.DAL.Repositories.Implementations
 {
-    public class GameRepository : IBaseRepository<Game>
+    public class GameRepository : BaseRepository<Game>, IGameRepository
     {
-        private readonly GameZoneDbContext _context;
-
-        public GameRepository(GameZoneDbContext context)
+        public GameRepository(GameZoneDbContext context) : base(context)
         {
-            _context = context;
         }
 
-        public async Task Create(Game item)
+        public void Add(Game item)
         {
             foreach (var category in item.Categories)
                 _context.Categories.Attach(category);
 
-            _context.Games.Add(item);
-            await _context.SaveChangesAsync();
+            base.Add(item);
         }
 
         public IQueryable<Game> Get()
         {
             return _context.Games.AsNoTracking();
-        }
-
-        public async Task<Game> Update(Game item)
-        {
-            _context.Games.Update(item);
-            await _context.SaveChangesAsync();
-
-            return item;
-        }
-
-        public async Task Delete(Game game)
-        {
-            _context.Games.Remove(game);
-            await _context.SaveChangesAsync();
         }
     }
 }

@@ -1,5 +1,5 @@
 using GameZone.DAL;
-using GameZone.DAL.Interfaces;
+using GameZone.DAL.Repositories.Interfaces;
 using GameZone.DAL.Repositories.Implementations;
 using GameZone.Domain.Core.Entities;
 using GameZone.Service.Implementations;
@@ -15,13 +15,13 @@ builder.Services.AddDbContext<GameZoneDbContext>(
     options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")
     ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.")));
 
-builder.Services.AddScoped<IBaseRepository<Game>, GameRepository>();
+builder.Services.AddScoped<IGameRepository, GameRepository>();
 builder.Services.AddScoped<IGameService, GameService>();
 
-builder.Services.AddScoped<IBaseRepository<Category>, CategoryRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
 builder.Services.AddScoped<ICategoryService, CategoryService>();
 
-builder.Services.AddScoped<IBaseRepository<Company>, CompanyRepository>();
+builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
 builder.Services.AddScoped<ICompanyService, CompanyService>();
 
 var app = builder.Build();

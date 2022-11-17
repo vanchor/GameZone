@@ -1,4 +1,4 @@
-﻿using GameZone.DAL.Interfaces;
+﻿using GameZone.DAL.Repositories.Interfaces;
 using GameZone.Domain.Core.Entities;
 using GameZone.Domain.Core.Enum;
 using GameZone.Domain.Core.Response;
@@ -13,9 +13,9 @@ namespace GameZone.Service.Implementations
 {
     public class ImageService : IImageService
     {
-        private readonly IBaseRepository<Image> imageRepository;
+        private readonly IImageRepository imageRepository;
 
-        public ImageService(IBaseRepository<Image> imageRepository)
+        public ImageService(IImageRepository imageRepository)
         {
             this.imageRepository = imageRepository;
         }

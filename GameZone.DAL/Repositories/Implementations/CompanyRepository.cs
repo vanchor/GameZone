@@ -1,4 +1,4 @@
-﻿using GameZone.DAL.Interfaces;
+﻿using GameZone.DAL.Repositories.Interfaces;
 using GameZone.Domain.Core.Entities;
 using System;
 using System.Collections.Generic;
@@ -8,38 +8,10 @@ using System.Threading.Tasks;
 
 namespace GameZone.DAL.Repositories.Implementations
 {
-    public class CompanyRepository : IBaseRepository<Company>
+    public class CompanyRepository : BaseRepository<Company>, ICompanyRepository
     {
-        private readonly GameZoneDbContext _context;
-
-        public CompanyRepository(GameZoneDbContext context)
+        public CompanyRepository(GameZoneDbContext context) : base(context)
         {
-            _context = context;
-        }
-
-        public async Task Create(Company item)
-        {
-            _context.Companies.Add(item);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task Delete(Company item)
-        {
-            _context.Companies.Remove(item);
-            await _context.SaveChangesAsync();
-        }
-
-        public IQueryable<Company> Get()
-        {
-            return _context.Companies;
-        }
-
-        public async Task<Company> Update(Company item)
-        {
-            _context.Companies.Update(item);
-            await _context.SaveChangesAsync();
-
-            return item;
         }
     }
 }
